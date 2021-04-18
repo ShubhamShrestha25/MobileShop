@@ -23,7 +23,7 @@ export const SliderData = [
 },
 {
     title: "Samsung galaxy S21 plus",
-    price: 'Rs 141,999',
+    price: 'Rs 129,999',
     image: s21plus,
     alt: 'Mobile'
 }

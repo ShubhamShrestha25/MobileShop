@@ -1,5 +1,5 @@
 .navbarItems {
-  background: #d21404;
+  background: #000000;
   height: 80px;
   display: flex;
   justify-content: space-between;
@@ -61,11 +61,11 @@
   }
 
   .nav-menu.active {
-    background: green;
+    background: rgb(24, 24, 24);
     left: 0;
     opacity: 1;
     transition: all 0.5s ease;
-    z-index: 1;
+    z-index: 10;
   }
 
   .nav-links {
@@ -76,7 +76,7 @@
   }
 
   .nav-links:hover {
-    background-color: #423131;
+    background-color: #e9d4d4;
     border-radius: 0;
   }
 
@@ -94,5 +94,10 @@
     right: 0;
     transform: translate(-100%, 60%);
     font-size: 1.8rem;
+  }
+  .rightIcons {
+    position: absolute;
+    right: 3.5rem;
+    top: 1.4rem;
   }
 }

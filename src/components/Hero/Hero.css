@@ -32,7 +32,7 @@
 
 .sliderButtons {
   position: absolute;
-  bottom: 50px;
+  bottom: 90px;
   right: 50px;
   display: flex;
   z-index: 10;
@@ -117,4 +117,10 @@
 
 .heroContent p {
   margin-bottom: 1.2rem;
+}
+
+@media screen and (max-width: 700px) {
+  .sliderButtons {
+    right: 0px;
+  }
 }
