@@ -13,7 +13,7 @@ const Navbar = () => {
         setclicked (!clicked);
     }
     return (
-        <nav className="navbarItems">
+        <div className="navbarItems">
             <h1 className="navbar-logo">
                 MobileS
             </h1>
@@ -33,7 +33,7 @@ const Navbar = () => {
             <ShoppingCartIcon />
             <AccountCircleIcon />
             </div>   
-        </nav>
+        </div>
     )
     
 }

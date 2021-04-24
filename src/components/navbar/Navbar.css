@@ -1,4 +1,9 @@
 .navbarItems {
+  position: fixed;
+  top: 0;
+  overflow: hidden;
+  z-index: 100;
+  width: 100%;
   background: #000000;
   height: 80px;
   display: flex;
@@ -28,7 +33,7 @@
 }
 
 .nav-links:hover {
-  color: black;
+  color: rgb(64, 64, 233);
 }
 
 .menu-icon {
@@ -76,8 +81,9 @@
   }
 
   .nav-links:hover {
-    background-color: #e9d4d4;
+    background-color: rgb(255, 255, 255);
     border-radius: 0;
+    color: black;
   }
 
   .navbar-logo {

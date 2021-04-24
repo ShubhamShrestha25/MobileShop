@@ -52,7 +52,7 @@
 }
 
 .arrow:hover {
-  background: #df2121;
+  background: rgb(64, 64, 233);
   transform: scale(1.05);
 }
 
@@ -122,5 +122,8 @@
 @media screen and (max-width: 700px) {
   .sliderButtons {
     right: 0px;
+  }
+  .arrow:hover {
+    color: white;
   }
 }
