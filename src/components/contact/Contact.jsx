@@ -6,7 +6,7 @@ import PhoneIcon from '@material-ui/icons/Phone';
 
 const Contact = () => {
     return (
-        <div className="contact">
+        <div className="contact" id="contact">
             <div className="content">
                 <h2>Contact Us</h2>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus hic illum cumque ad unde reprehenderit neque alias quas. Obcaecati, voluptas omnis magni fugit dolore pariatur aperiam quod nihil facere ratione?</p>

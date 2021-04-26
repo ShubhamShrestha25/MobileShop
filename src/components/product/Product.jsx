@@ -60,8 +60,8 @@ const Product = () => {
   };
 
   return (
-    <>
-      <div className="filter">
+    <div id="product">
+      <div className="filter" >
         <h1>Products</h1>
         <div className="filter-sort">
           Order{" "}
@@ -126,7 +126,7 @@ const Product = () => {
         </div>
         </Zoom>
       </Modal>
-    </>
+    </div>
   );
 };
 

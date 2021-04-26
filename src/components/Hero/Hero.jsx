@@ -29,7 +29,7 @@ const Hero = ({slides}) => {
     }
 
     return (
-        <div className="heroSection">
+        <div className="heroSection" id="home">
             <div className="heroWrapper">
                 {slides.map((slide, index) => {
                     return (

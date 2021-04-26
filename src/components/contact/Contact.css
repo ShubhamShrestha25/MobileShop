@@ -145,16 +145,18 @@ textarea:valid ~ span {
   }
 
   .contactInfo {
+    position: relative;
+    right: 40px;
+    top: 10px;
     margin-bottom: 40px;
-    margin-right: 40px;
   }
   .contactForm {
     width: 100%;
   }
   .content h2 {
-    bottom: -10px;
+    bottom: -35px;
   }
   .content p {
-    bottom: -30px;
+    bottom: -45px;
   }
 }

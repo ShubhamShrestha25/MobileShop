@@ -73,6 +73,8 @@
   margin: 16px;
   border-bottom: 3px #c0c0c0 solid;
   justify-content: space-between;
+  position: relative;
+  top: 70px;
 }
 
 .filer-size {

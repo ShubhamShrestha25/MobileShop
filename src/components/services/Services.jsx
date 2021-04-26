@@ -6,8 +6,8 @@ import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
 
 const Services = () => {
     return (
-        <div className="services">
-        <div className="wrapper">
+        <div className="services" >
+        <div className="wrapper" id="service">
             <h2>Our Services</h2>
             <div className="line"></div>
             <div className="single-service">
