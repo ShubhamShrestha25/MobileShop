@@ -4,6 +4,7 @@ import Navbar from "./components/navbar/Navbar";
 import { SliderData } from "./components/Hero/SliderData";
 import Product from "./components/product/Product";
 import Services from "./components/services/Services";
+import Contact from "./components/contact/Contact";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Hero slides={SliderData} />
       <Product />
       <Services />
+      <Contact />
     </div>
   );
 }
