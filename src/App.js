@@ -5,6 +5,7 @@ import { SliderData } from "./components/Hero/SliderData";
 import Product from "./components/product/Product";
 import Services from "./components/services/Services";
 import Contact from "./components/contact/Contact";
+import Footer from "./components/footer/Footer";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Product />
       <Services />
       <Contact />
+      <Footer />
     </div>
   );
 }

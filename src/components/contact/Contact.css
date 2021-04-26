@@ -20,7 +20,7 @@
   font-weight: 500;
   color: #fff;
   position: relative;
-  bottom: 70px;
+  bottom: 100px;
 }
 
 .content p {
@@ -28,7 +28,7 @@
   color: #fff;
   margin-bottom: 25px;
   position: relative;
-  bottom: 30px;
+  bottom: 40px;
 }
 
 .container {
@@ -128,7 +128,7 @@ textarea:valid ~ span {
 
 .inputBox input[type="submit"] {
   width: 100px;
-  background: rgb(39, 42, 245);
+  background: rgb(34, 38, 241);
   color: #fff;
   border: none;
   cursor: pointer;
@@ -152,9 +152,9 @@ textarea:valid ~ span {
     width: 100%;
   }
   .content h2 {
-    bottom: -5px;
+    bottom: -10px;
   }
   .content p {
-    bottom: -20px;
+    bottom: -30px;
   }
 }
