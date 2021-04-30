@@ -59,6 +59,7 @@ const Product = () => {
     setSingleProduct(singleProduct);
   };
 
+
   return (
     <div id="product">
       <div className="filter" >
@@ -103,14 +104,14 @@ const Product = () => {
                   <div className="card_header">
                     <h2>{item.title}</h2>
                     <p className="price"> Rs {item.price}</p>
-                    <div className="btn">Add to cart</div>
+                    <div className="btn" >Add to cart</div>
                   </div>
                 </div>
               </Fade>
             );
           })}
       </div>
-      <Modal isOpen={modalOpen} onRequestClose={() => setModalOpen(false)}>
+      <Modal  isOpen={modalOpen} onRequestClose={() => setModalOpen(false)}>
         <Zoom >
         <button className="closeModal" onClick={() => setModalOpen(false)}>X</button>
         <div className="product_details">
@@ -126,6 +127,7 @@ const Product = () => {
         </div>
         </Zoom>
       </Modal>
+
     </div>
   );
 };

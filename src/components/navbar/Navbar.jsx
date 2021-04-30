@@ -4,8 +4,8 @@ import './Navbar.css'
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { animateScroll as scroll, Link } from 'react-scroll';
+
 
 
 const Navbar = () => {
@@ -13,6 +13,12 @@ const Navbar = () => {
     const clickHandler = () =>{
         setclicked (!clicked);
     }
+
+    const [open, setOpen] = useState(false)
+    const openSlider = () => {
+        setOpen (!open)
+    }
+
     return (
         <div className="navbarItems">
             <h1 className="navbar-logo" onClick={() => scroll.scrollToTop()}>
@@ -30,10 +36,12 @@ const Navbar = () => {
                     )                                    
                 })}
             </ul>
-            <div className="rightIcons">
-            <ShoppingCartIcon />
-            <AccountCircleIcon />
-            </div>   
+            <div className="rightIcons" >
+                 <ShoppingCartIcon onClick={openSlider}/>
+             </div>
+            <div  className={open? 'sidemenu active' : 'sidemenu'}>
+            <button className="closebtn" onClick={openSlider}>X</button>
+            </div>  
         </div>
     )
     
