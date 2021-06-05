@@ -9,6 +9,19 @@ import { animateScroll as scroll, Link } from 'react-scroll';
 
 
 const Navbar = () => {
+    
+    // const [navbar, setNavbar] = useState(false)
+    // const changeBackground = () => {
+    //     if(window.scrollY > 100) {
+    //         setNavbar(true)
+    //     }
+    //     else {
+    //         setNavbar(false)
+    //     }
+    // }
+
+    // window.addEventListener('scroll', changeBackground)
+
     const [clicked, setclicked] = useState(false)
     const clickHandler = () =>{
         setclicked (!clicked);
@@ -18,9 +31,9 @@ const Navbar = () => {
     const openSlider = () => {
         setOpen (!open)
     }
-
+  
     return (
-        <div className="navbarItems">
+        <div className='navbar'>
             <h1 className="navbar-logo" onClick={() => scroll.scrollToTop()}>
                 MobileS
             </h1>
@@ -37,9 +50,10 @@ const Navbar = () => {
                 })}
             </ul>
             <div className="rightIcons" >
-                 <ShoppingCartIcon onClick={openSlider}/>
+                 <ShoppingCartIcon onClick={openSlider} />
              </div>
             <div  className={open? 'sidemenu active' : 'sidemenu'}>
+             <h1>Shopping Cart</h1>
             <button className="closebtn" onClick={openSlider}>X</button>
             </div>  
         </div>

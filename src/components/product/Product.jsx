@@ -5,9 +5,11 @@ import Fade from "react-reveal/Fade";
 import Modal from "react-modal";
 import Zoom from "react-reveal/Zoom";
 
-const latestProducts = [...ProductData];
+
 
 const Product = () => {
+
+const latestProducts = [...ProductData];
   const [filter, setFilter] = useState({
     filter: "All",
     products: [...ProductData],
@@ -59,6 +61,9 @@ const Product = () => {
     setSingleProduct(singleProduct);
   };
 
+
+
+ 
 
   return (
     <div id="product">
@@ -121,7 +126,7 @@ const Product = () => {
           <p> {singleProduct.description}</p>
           <div className="product_price">
           <div><strong><p>Rs {singleProduct.price}</p></strong></div>
-          <button className="btn" onClick={() => setModalOpen(false)}>Add to cart</button>
+          <button className="btn" >Add to cart</button>
           </div>
           </div>
         </div>
