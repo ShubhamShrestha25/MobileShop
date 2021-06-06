@@ -10,17 +10,17 @@ import { animateScroll as scroll, Link } from 'react-scroll';
 
 const Navbar = () => {
     
-    // const [navbar, setNavbar] = useState(false)
-    // const changeBackground = () => {
-    //     if(window.scrollY > 100) {
-    //         setNavbar(true)
-    //     }
-    //     else {
-    //         setNavbar(false)
-    //     }
-    // }
+    const [navbar, setNavbar] = useState(false)
+    const changeBackground = () => {
+        if(window.scrollY > 100) {
+            setNavbar(true)
+        }
+        else {
+            setNavbar(false)
+        }
+    }
 
-    // window.addEventListener('scroll', changeBackground)
+    window.addEventListener('scroll', changeBackground)
 
     const [clicked, setclicked] = useState(false)
     const clickHandler = () =>{
@@ -32,8 +32,10 @@ const Navbar = () => {
         setOpen (!open)
     }
   
+
+
     return (
-        <div className='navbar'>
+        <div className={navbar? 'navbaractive' : 'navbar'}>
             <h1 className="navbar-logo" onClick={() => scroll.scrollToTop()}>
                 MobileS
             </h1>
