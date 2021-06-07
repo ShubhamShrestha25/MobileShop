@@ -17,6 +17,10 @@
   background: #101010;
 }
 
+.add-background {
+  background-color: #101010;
+}
+
 .navbar-logo {
   color: #fff;
   cursor: pointer;
@@ -54,17 +58,19 @@
 }
 
 .sidemenu {
-  top: 5rem;
+  top: 0;
   right: -100%;
   height: 100%;
   position: fixed;
   width: 15%;
   background-color: #fff;
-  transition: 850ms;
+  transition: all ease 05s;
+  box-shadow: 0 0 35px #04040445;
+  overflow: hidden;
 }
 
 .sidemenu h1 {
-  font-size: 16px;
+  font-size: 24px;
   padding-top: 25px;
   display: flex;
   align-items: center;
@@ -75,14 +81,13 @@
 
 .sidemenu.active {
   right: 0;
-  transition: 350ms;
+  transition: ease;
 }
 
 .closebtn {
   position: absolute;
   top: 22px;
-  right: 20px;
-  font-size: 22px;
+  right: 18px;
   margin-left: 25px;
   color: black;
   border: none;
@@ -147,5 +152,14 @@
 
   .sidemenu {
     width: 55%;
+  }
+
+  .sidemenu h1 {
+    font-size: 18px;
+  }
+
+  .closebtn {
+    top: 15px;
+    right: 10px;
   }
 }

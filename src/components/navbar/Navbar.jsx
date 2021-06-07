@@ -1,22 +1,27 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { MenuItems } from './MenuItems'
 import './Navbar.css'
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { animateScroll as scroll, Link } from 'react-scroll';
+import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 
 
+const safeDocument = typeof document !== 'undefined' ? document : {};
 
 const Navbar = () => {
+    const html = safeDocument.documentElement;
+    const divRef = useRef(null);
     
     const [navbar, setNavbar] = useState(false)
     const changeBackground = () => {
         if(window.scrollY > 100) {
-            setNavbar(true)
+            setNavbar(true);
+            divRef.current.className = "navbaractive";
         }
         else {
-            setNavbar(false)
+            setNavbar(false);
         }
     }
 
@@ -25,38 +30,51 @@ const Navbar = () => {
     const [clicked, setclicked] = useState(false)
     const clickHandler = () =>{
         setclicked (!clicked);
+        const class_name = divRef.current;
+        if (clicked){
+            class_name.className = "navbar";
+            html.style.overflowY = 'scroll';
+        }else{
+            class_name.classList.add("add-background");
+            html.style.overflowY = 'hidden';
+        }
     }
 
     const [open, setOpen] = useState(false)
     const openSlider = () => {
         setOpen (!open)
     }
-  
+
+    const multipleFunction = () =>{
+        setclicked(!clicked);
+        html.style.overflowY = 'scroll';
+    }
+
 
 
     return (
-        <div className={navbar? 'navbaractive' : 'navbar'}>
+        <div className={navbar? 'navbaractive' : 'navbar'} ref={divRef}>
             <h1 className="navbar-logo" onClick={() => scroll.scrollToTop()}>
                 MobileS
             </h1>
             <div className="menu-icon" onClick={clickHandler}>
-               {clicked ?  <CloseIcon />  :  <MenuIcon/>}
+                {clicked ?  <CloseIcon />  :  <MenuIcon/>}
             </div>
             <ul className={clicked ? 'nav-menu active' : 'nav-menu'}>
                 {MenuItems.map((item, index) => {
                     return(
                         <li key={index} >
-                        <Link onClick={() => setclicked(!clicked)} className={item.cName} to={item.url} smooth={true} duration={1000} >{item.title}</Link>
+                            <Link onClick={ () => multipleFunction()} className={item.cName} to={item.url} smooth={true} duration={1000} >{item.title}</Link>
                         </li>
                     )                                    
                 })}
             </ul>
             <div className="rightIcons" >
-                 <ShoppingCartIcon onClick={openSlider} />
-             </div>
+                <ShoppingCartIcon onClick={openSlider} />
+            </div>
             <div  className={open? 'sidemenu active' : 'sidemenu'}>
-             <h1>Shopping Cart</h1>
-            <button className="closebtn" onClick={openSlider}>X</button>
+                <h1>Shopping Cart</h1>
+            <button className="closebtn" onClick={openSlider}><CloseRoundedIcon /></button>
             </div>  
         </div>
     )

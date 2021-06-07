@@ -62,8 +62,18 @@ const latestProducts = [...ProductData];
   };
 
 
-
- 
+  const customStyles = {
+    content : {
+      position              : 'fixed',
+      top                   : '53%',
+      left                  : '50%',
+      right                 : 'auto',
+      bottom                : 'auto',
+      marginRight           : '-30%',
+      transform             : 'translate(-50%, -50%)',
+      overflow              : 'hidden'
+      }
+  };
 
   return (
     <div id="product">
@@ -116,7 +126,7 @@ const latestProducts = [...ProductData];
             );
           })}
       </div>
-      <Modal  isOpen={modalOpen} onRequestClose={() => setModalOpen(false)}>
+      <Modal  isOpen={modalOpen} onRequestClose={() => setModalOpen(false)} ariaHideApp={false} style={customStyles} >
         <Zoom >
         <button className="closeModal" onClick={() => setModalOpen(false)}>X</button>
         <div className="product_details">
