@@ -94,8 +94,8 @@ select {
 }
 
 .product_details img {
-  max-height: 100vh;
-  max-width: 736px;
+  max-height: 50%;
+  max-width: 50%;
   margin: 0 auto;
 }
 
@@ -128,5 +128,20 @@ select {
 
   .filter {
     top: 80px;
+  }
+
+  .product_details_description {
+    top: 13px;
+  }
+
+  .product_details_description p {
+    margin-bottom: 20px;
+  }
+
+  .product_details img {
+    position: relative;
+    top: 1rem;
+  
+    max-width: 80%;
   }
 }

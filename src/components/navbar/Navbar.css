@@ -51,10 +51,26 @@
   cursor: pointer;
 }
 
+.right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
 .rightIcons {
   display: flex;
-  gap: 10px;
   color: white;
+}
+
+.login {
+  border: none;
+  border-radius: 28px;
+  padding: 14px 28px;
+  font-size: 12px;
+  cursor: pointer;
+  outline: none;
+  display: inline-block;
 }
 
 .sidemenu {

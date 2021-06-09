@@ -63,16 +63,16 @@ const latestProducts = [...ProductData];
 
 
   const customStyles = {
-    content : {
-      position              : 'fixed',
-      top                   : '53%',
-      left                  : '50%',
-      right                 : 'auto',
-      bottom                : 'auto',
-      marginRight           : '-30%',
-      transform             : 'translate(-50%, -50%)',
-      overflow              : 'hidden'
-      }
+    content: {
+      top: '55%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      width: '80%',
+      transform: 'translate(-50%, -50%)',
+      overflow: 'hidden'
+    },
   };
 
   return (

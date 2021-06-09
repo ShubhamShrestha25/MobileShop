@@ -91,7 +91,7 @@
 .inputBox {
   position: relative;
   width: 100%;
-  margin-top: 10px;
+  margin-top: 13px;
 }
 
 .inputBox input,
@@ -119,6 +119,8 @@ textarea {
 
 .inputBox input:focus ~ span,
 input:valid ~ span,
+input[type="email"]:focus ~ span,
+input[type="email"]:valid ~ span,
 textarea:focus ~ span,
 textarea:valid ~ span {
   color: #e91e63;

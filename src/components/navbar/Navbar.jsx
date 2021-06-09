@@ -69,13 +69,17 @@ const Navbar = () => {
                     )                                    
                 })}
             </ul>
+            <div className="right">
             <div className="rightIcons" >
                 <ShoppingCartIcon onClick={openSlider} />
             </div>
             <div  className={open? 'sidemenu active' : 'sidemenu'}>
                 <h1>Shopping Cart</h1>
             <button className="closebtn" onClick={openSlider}><CloseRoundedIcon /></button>
-            </div>  
+            </div> 
+            
+            <button className="login">LogIn</button>    
+            </div> 
         </div>
     )
     

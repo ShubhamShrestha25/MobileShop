@@ -6,10 +6,9 @@ import Product from "./components/product/Product";
 import Services from "./components/services/Services";
 import Contact from "./components/contact/Contact";
 import Footer from "./components/footer/Footer";
-
+import SignUp from "./components/login/Signup";
 
 function App() {
-
   return (
     <div className="App">
       <Navbar />
@@ -18,6 +17,7 @@ function App() {
       <Services />
       <Contact />
       <Footer />
+      <SignUp />
     </div>
   );
 }
