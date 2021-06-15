@@ -54,8 +54,10 @@ const Navbar = () => {
 
 
     const loginHandler = () => {
-        auth.signInWithPopup(provider)
+        auth.signInWithPopup(provider) 
+
     }
+
 
     return (
         <div className={navbar ? 'navbaractive' : 'navbar'} ref={divRef}>
@@ -84,7 +86,7 @@ const Navbar = () => {
                     <button className="closebtn" onClick={openSlider}><CloseRoundedIcon /></button>
                 </div>
                 <div>
-                    <button className="login" onClick={loginHandler()}>LogIn</button>
+                    <button className="login" onClick={() => loginHandler(provider)}>LogIn</button>
                 </div>
             </div>
         </div>
