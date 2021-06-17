@@ -9,7 +9,7 @@ const Footer = () => {
     return (
         <div className="footer">
             <div className="footerContent">
-                <h3>Mobile Store</h3>
+                <h3>MoB-ShoP</h3>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique nulla, nesciunt dolor ipsum velit minus temporibus, maiores accusantium animi, voluptas ab unde. Amet cum nisi sapiente inventore eaque voluptate expedita.</p>
                 <ul className="socials">
                     <li><span><FacebookIcon/></span></li>
@@ -19,7 +19,7 @@ const Footer = () => {
                 </ul>
             </div>
             <div className="footerBottom">
-                <p>copyright &copy;2021 Mobile Store</p>
+                <p>copyright &copy;2021 MoB-ShoP</p>
             </div>
         </div>
     )

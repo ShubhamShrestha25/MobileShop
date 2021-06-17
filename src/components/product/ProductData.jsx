@@ -102,7 +102,7 @@ export const ProductData = [
     },
     {
     id: 12,
-    title: "Realme c15 ",
+    title: "Realme c15",
     price: 19500,
     description: "Realme C15 Qualcomm Edition smartphone was launched on 28th October 2020. The phone comes with a 6.50-inch touchscreen display with a resolution of 720x1600 pixels and an aspect ratio of 20:9. Realme C15 Qualcomm Edition is powered by an octa-core Qualcomm Snapdragon 460 processor. It comes with 3GB of RAM.",
     image: i12,

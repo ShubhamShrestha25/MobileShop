@@ -58,9 +58,27 @@
   gap: 2rem;
 }
 
-.rightIcons {
+.basket {
   display: flex;
+  position: relative;
+  top: 0.2rem;
   color: white;
+  right: 0.2rem;
+}
+
+.basket span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: -15px;
+  top: -10px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: white;
+  color: black;
+  font-size: 14px;
 }
 
 .login {
@@ -147,8 +165,8 @@
 
   .navbar-logo {
     position: absolute;
-    top: -0.5rem;
-    left: 0;
+    top: -0.7rem;
+    left: -0.7rem;
     transform: translate(25%, 50%);
   }
 
@@ -160,10 +178,17 @@
     transform: translate(-100%, 60%);
     font-size: 1.8rem;
   }
-  .rightIcons {
+  .basket {
     position: absolute;
-    right: 3.5rem;
-    top: 1.4rem;
+    right: 4rem;
+    top: 1.3rem;
+  }
+
+  .basket span {
+    font-size: 12px;
+    width: 18px;
+    height: 19px;
+    right: -12px;
   }
 
   .sidemenu {

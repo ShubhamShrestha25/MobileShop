@@ -78,15 +78,16 @@ const Navbar = () => {
             </ul>
 
             <div className="right">
-                <div className="rightIcons" >
+                <div className="basket" >
                     <ShoppingCartIcon onClick={openSlider} />
+                    <span>0</span>
                 </div>
                 <div className={open ? 'sidemenu active' : 'sidemenu'}>
                     <h1>Shopping Cart</h1>
                     <button className="closebtn" onClick={openSlider}><CloseRoundedIcon /></button>
                 </div>
                 <div>
-                    <button className="login" onClick={() => loginHandler(provider)}>LogIn</button>
+                <button className="login" onClick={() => loginHandler(provider)}>LogIn</button>
                 </div>
             </div>
         </div>

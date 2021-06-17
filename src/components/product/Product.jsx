@@ -6,10 +6,8 @@ import Modal from "react-modal";
 import Zoom from "react-reveal/Zoom";
 
 
-
 const Product = () => {
 
-const latestProducts = [...ProductData];
   const [filter, setFilter] = useState({
     filter: "All",
     products: [...ProductData],
@@ -30,12 +28,15 @@ const latestProducts = [...ProductData];
         return a.price - b.price;
       });
       setFilter({ filter: event.target.value, products: lowestPriceProduct });
-    } else if (event.target.value === "highest") {
+    } if (event.target.value === "highest") {
       const heighestPriceProduct = ProductData.sort((a, b) => {
         return b.price - a.price;
       });
       setFilter({ filter: event.target.value, products: heighestPriceProduct });
-    } else {
+    } if(event.target.value === "latest") {
+      const latestProducts = ProductData.sort((a,b) =>{
+        return a.id-b.id;
+      })
       setFilter({ filter: event.target.value, products: latestProducts });
     }
   };
@@ -60,7 +61,6 @@ const latestProducts = [...ProductData];
     const singleProduct = ProductData.find((product) => product.id === id);
     setSingleProduct(singleProduct);
   };
-
 
   const customStyles = {
     content: {

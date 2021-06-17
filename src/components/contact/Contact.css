@@ -6,7 +6,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background: url("C:\Users\GoDLiKE\Desktop\react\mobileshop\src\components\images\contact.jpg");
+  background: url("../images/contact.jpg");
   background-size: cover;
 }
 
