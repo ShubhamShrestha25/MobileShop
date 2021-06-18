@@ -1,9 +1,10 @@
-.main_content {
+.products-container {
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  width: 70%;
+  top: 6rem;
+  width: 80%;
   height: 100%;
   margin: 50px auto;
   padding: 50px 0 0;
@@ -12,7 +13,19 @@
   flex-wrap: wrap;
 }
 
-.card {
+.products h1 {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: 6rem;
+  font-size: 60px;
+}
+
+.products-container img {
+  width: 250px;
+  cursor: pointer;
+}
+.product-card {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,34 +35,30 @@
   position: relative;
   transform: scale(0.8);
   transition: all 0.3s ease-in-out;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
-.card_img {
-  width: 200px;
-}
-
-.card_header {
+.product-name {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  position: relative;
+  top: -1.5rem;
   margin: 25px 0;
-}
-
-.card_header h2 {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-.price {
   font-size: 25px;
-  margin-bottom: 10px;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 15px;
+  cursor: default;
 }
 
-.card :hover {
-  transform: scale(1.1);
-  cursor: pointer;
+.product-price {
+  font-size: 20px;
+  font-weight: bold;
+  position: relative;
+  top: -1.5rem;
+  cursor: default;
 }
 
 .btn {
@@ -59,7 +68,7 @@
   background-color: rgb(24, 24, 24);
   color: white;
   width: 130px;
-  height: 35px;
+  height: 40px;
   font-size: 14px;
   border-radius: 35px;
   cursor: pointer;
@@ -68,22 +77,30 @@
 }
 
 .filter {
-  display: flex;
-  padding: 16px;
-  margin: 16px;
-  border-bottom: 3px #c0c0c0 solid;
-  justify-content: space-between;
   position: relative;
-  top: 70px;
+  left: 5rem;
+  top: 8rem;
 }
 
-.filer-size {
+.searchbar {
   position: relative;
-  top: 5px;
+  float: right;
+  top: 5rem;
+  right: 5rem;
+}
+.searchBox {
+  position: relative;
+  padding: 10px 25px;
+  border-radius: 1rem;
+  outline: none;
 }
 
-select {
+.search-icon {
   cursor: pointer;
+  position: relative;
+  top: 0.5rem;
+  right: 1.8rem;
+  z-index: 1;
 }
 
 .product_details {
@@ -106,6 +123,23 @@ select {
   top: 40px;
 }
 
+.product_btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(24, 24, 24);
+  color: white;
+  width: 130px;
+  height: 40px;
+  font-size: 14px;
+  border-radius: 35px;
+  cursor: pointer;
+  position: relative;
+  float: right;
+  overflow: hidden;
+  top: 3rem;
+}
+
 .product_details_description p {
   margin-bottom: 16px;
 }
@@ -121,13 +155,25 @@ select {
 }
 
 @media screen and (max-width: 700px) {
-  .card {
-    width: 67%;
+  .product-card {
+    position: relative;
+    top: -70px;
+    width: 65%;
     margin: 45px;
+    margin-bottom: -2rem;
+  }
+  .products h1 {
+    font-size: 40px;
   }
 
-  .filter {
-    top: 80px;
+  .product-name {
+    font-size: 20px;
+  }
+  .product-price {
+    font-size: 18px;
+  }
+  .products-container img {
+    max-width: 250px;
   }
 
   .product_details_description {
@@ -140,8 +186,26 @@ select {
 
   .product_details img {
     position: relative;
+    max-width: 200px;
     top: 1rem;
-  
-    max-width: 80%;
+  }
+
+  .filter {
+    left: 1rem;
+  }
+
+  .searchbar {
+    top: 5.5rem;
+    right: -3.5rem;
+  }
+
+  .searchBox {
+    width: 70%;
+    padding: 7px 25px;
+  }
+
+  .product_btn {
+    float: left;
+    top: 0;
   }
 }
