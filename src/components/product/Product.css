@@ -93,6 +93,7 @@
   padding: 10px 25px;
   border-radius: 1rem;
   outline: none;
+  overflow: hidden;
 }
 
 .search-icon {
@@ -100,7 +101,6 @@
   position: relative;
   top: 0.5rem;
   right: 1.8rem;
-  z-index: 1;
 }
 
 .product_details {
@@ -137,7 +137,7 @@
   position: relative;
   float: right;
   overflow: hidden;
-  top: 3rem;
+  top: 5rem;
 }
 
 .product_details_description p {
@@ -181,13 +181,15 @@
   }
 
   .product_details_description p {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    font-size: 15px;
   }
 
   .product_details img {
     position: relative;
-    max-width: 200px;
+    max-width: 170px;
     top: 1rem;
+    padding-top: -10px;
   }
 
   .filter {
@@ -207,5 +209,11 @@
   .product_btn {
     float: left;
     top: 0;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .product_btn {
+    top: -0.5rem;
   }
 }

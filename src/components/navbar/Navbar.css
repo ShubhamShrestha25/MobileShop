@@ -39,10 +39,26 @@
   text-decoration: none;
   padding: 0.5 rem 1rem;
   cursor: pointer;
+  font-size: 18px;
 }
 
-.nav-links:hover {
-  color: rgb(34, 38, 241);
+.nav-links::after {
+  content: "";
+  height: 3px;
+  position: relative;
+  top: 0.5rem;
+  width: 0%;
+  background-color: white;
+  display: block;
+  transition: 0.5s ease-in-out;
+}
+
+.nav-links:hover::after {
+  content: "";
+  height: 2px;
+  width: 100%;
+  background-color: white;
+  display: block;
 }
 
 .menu-icon {
@@ -55,7 +71,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
+  gap: 1.3rem;
 }
 
 .basket {

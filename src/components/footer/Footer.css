@@ -41,6 +41,8 @@
 .socials li {
   margin: 0 10px;
   cursor: pointer;
+  color: #fff;
+  text-decoration: none !important;
 }
 
 .socials li:hover span {

@@ -9,7 +9,7 @@ import SearchIcon from '@material-ui/icons/Search';
 
     const { products } = useContext(ProductsContext);
     
-    // Filtering order
+    // Filtering order \\
     const [filter, setFilter] = useState({
         filter: "All",
         productss: [...products],
@@ -31,7 +31,7 @@ import SearchIcon from '@material-ui/icons/Search';
         }
       };
 
-      // Filtering Brand
+      // Filtering Brand \\
       const [brand, setBrand] = useState([]);
 
       useEffect(() => {
@@ -55,7 +55,7 @@ import SearchIcon from '@material-ui/icons/Search';
       };
 
 
-      // Modal
+      // Modal \\
       const [modalOpen, setModalOpen] = useState(false);
       const [singleProduct, setSingleProduct] = useState([]);
 
@@ -78,6 +78,14 @@ import SearchIcon from '@material-ui/icons/Search';
     setSingleProduct(singleProduct);
   };
     
+    // search \\
+
+    const [search, setSearch] = useState("")
+
+    const searchHandler = (e) => {
+      setSearch(e.target.value)
+    }
+
 
     return (
         <div className="products" id="product">
@@ -110,12 +118,18 @@ import SearchIcon from '@material-ui/icons/Search';
             </div>
             <div className="searchbar">
               <div className="search">
-                <input type="text" placeholder="Search" className="searchBox" />
+                <input type="text" placeholder="Search" className="searchBox" onChange={searchHandler}/>
                   <SearchIcon className="search-icon"/>
               </div>
             </div>
             <div className='products-container'>
-                {products.map(product => (
+                {products.filter((val) => {
+                  if (search == ""){
+                    return val
+                  } else if (val.ProductName.toLowerCase().includes(search.toLowerCase())){
+                    return val
+                  }
+                }).map(product => (
                     <div className='product-card' key={product.ProductID}>
                         <div>
                             <img src={product.ProductImg} alt="not found" onClick={() => openModal(product.ProductID)}/>
