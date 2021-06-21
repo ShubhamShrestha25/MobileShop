@@ -13,7 +13,6 @@
   align-items: center;
   overflow: hidden;
   position: relative;
-  
 }
 
 .Button {
@@ -53,7 +52,7 @@
 }
 
 .arrow:hover {
-  background: rgb(34, 38, 241);
+  background: #0000ff;
   transform: scale(1.05);
 }
 

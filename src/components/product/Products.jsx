@@ -1,14 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { ProductsContext } from './ProductsContext'
+import { ProductsContext } from '../global/ProductsContext'
 import './Product.css'
 import Modal from "react-modal";
 import Zoom from "react-reveal/Zoom";
 import SearchIcon from '@material-ui/icons/Search';
+import { CartContext } from '../global/CartContext';
 
  const Products = () => {
 
     const { products } = useContext(ProductsContext);
-    
+    // const data = useContext(CartContext);
+    // console.log(data)
+
+      const {dispatch} = useContext(CartContext)
+
     // Filtering order \\
     const [filter, setFilter] = useState({
         filter: "All",
@@ -124,9 +129,9 @@ import SearchIcon from '@material-ui/icons/Search';
             </div>
             <div className='products-container'>
                 {products.filter((val) => {
-                  if (search == ""){
+                  if (search === ""){
                     return val
-                  } else if (val.ProductName.toLowerCase().includes(search.toLowerCase())){
+                  } if (val.ProductName.toLowerCase().includes(search.toLowerCase())){
                     return val
                   }
                 }).map(product => (
@@ -140,7 +145,7 @@ import SearchIcon from '@material-ui/icons/Search';
                         <div className='product-price'>
                             Rs {product.ProductPrice}
                     </div>
-                        <button className='btn'>ADD TO CART</button>
+                        <button className='btn' onClick = {() => (dispatch({type: 'ADD_to_CART', id: product.ProductID,product}))}>ADD TO CART</button>
                     </div>
                 ))}
             </div>
@@ -155,7 +160,7 @@ import SearchIcon from '@material-ui/icons/Search';
           <p> {singleProduct.ProductDetails}</p>
           <div className="product_price">
           <div><strong><p>Rs {singleProduct.ProductPrice}</p></strong></div>
-          <button className="product_btn" >Add to cart</button>
+          <button className="product_btn" onClick = {() => (dispatch({type: 'ADD_to_CART', id: singleProduct.ProductID,singleProduct}))}>Add to cart</button>
           </div>
           </div>
         </div>

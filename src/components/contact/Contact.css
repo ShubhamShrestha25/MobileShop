@@ -130,7 +130,7 @@ textarea:valid ~ span {
 
 .inputBox input[type="submit"] {
   width: 100px;
-  background: rgb(34, 38, 241);
+  background: #0000ff;
   color: #fff;
   border: none;
   cursor: pointer;

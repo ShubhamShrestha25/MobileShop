@@ -97,7 +97,8 @@
   font-size: 14px;
 }
 
-.login {
+.login,
+.logout {
   border: none;
   border-radius: 28px;
   padding: 14px 28px;
@@ -105,6 +106,11 @@
   cursor: pointer;
   outline: none;
   display: inline-block;
+}
+
+.logout {
+  background: #ff0000;
+  color: white;
 }
 
 .sidemenu {

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useContext  } from 'react'
 import { MenuItems } from './MenuItems'
 import './Navbar.css'
 import MenuIcon from '@material-ui/icons/Menu';
@@ -6,13 +6,17 @@ import CloseIcon from '@material-ui/icons/Close';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { animateScroll as scroll, Link } from 'react-scroll';
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
-import {auth, provider } from '../Firebase'
+import {auth, provider } from '../Firebase';
+import { CartContext } from '../global/CartContext';
+
 
 
 
 const safeDocument = typeof document !== 'undefined' ? document : {};
 
 const Navbar = () => {
+    const {totalQty} = useContext(CartContext);
+
     const html = safeDocument.documentElement;
     const divRef = useRef(null);
 
@@ -55,9 +59,24 @@ const Navbar = () => {
 
     const loginHandler = () => {
         auth.signInWithPopup(provider) 
-
     }
 
+    const logoutHandler =  async () => {
+       await auth.signOut().then(() => {
+            console.log('user signed out')
+        })
+    }
+
+    const [isLoggedIn] = useState(false)
+    
+
+    const logoutLink = (
+        <button className="logout" onClick={() => logoutHandler()}>Logout</button>
+    )
+
+    const loginLink = (
+        <button className="login" onClick={() => loginHandler(provider)}>LogIn</button>
+    )
 
     return (
         <div className={navbar ? 'navbaractive' : 'navbar'} ref={divRef}>
@@ -80,14 +99,14 @@ const Navbar = () => {
             <div className="right">
                 <div className="basket" >
                     <ShoppingCartIcon onClick={openSlider} />
-                    <span>0</span>
+                    <span>{totalQty}</span>
                 </div>
                 <div className={open ? 'sidemenu active' : 'sidemenu'}>
                     <h1>Shopping Cart</h1>
                     <button className="closebtn" onClick={openSlider}><CloseRoundedIcon /></button>
                 </div>
                 <div>
-                <button className="login" onClick={() => loginHandler(provider)}>LogIn</button>
+                {isLoggedIn  ? logoutLink : loginLink}
                 </div>
             </div>
         </div>
