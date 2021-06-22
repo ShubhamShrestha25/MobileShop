@@ -8,7 +8,6 @@ import Services from "./components/services/Services";
 import Contact from "./components/contact/Contact";
 import Footer from "./components/footer/Footer";
 import Products from "./components/product/Products";
-import Cart from "./components/navbar/Cart";
 
 function App() {
   return (
@@ -20,7 +19,6 @@ function App() {
           <Products />
           <Services />
           <Contact />
-          <Cart />
           <Footer />
         </CartContextProvider>
       </ProductsContextProvider>
