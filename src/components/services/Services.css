@@ -1,6 +1,8 @@
 .services {
+  display: flex;
+  flex-direction: column;
   background-color: rgb(221, 221, 221);
-  height: 100vh;
+  min-height: 110vh;
 }
 
 .wrapper {
@@ -8,12 +10,13 @@
   margin: 5% auto;
 }
 .wrapper h2 {
-  padding-top: 100px;
   text-transform: uppercase;
+  position: relative;
   font-weight: bold;
   text-align: center;
-  font-size: 60px;
+  font-size: 55px;
   margin: 0;
+  padding-top: 100px;
 }
 
 .single-service {

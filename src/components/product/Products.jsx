@@ -8,9 +8,7 @@ import { CartContext } from '../global/CartContext';
 
  const Products = () => {
 
-    const { products } = useContext(ProductsContext);
-    // const data = useContext(CartContext);
-    // console.log(data)
+    const { products } = useContext(ProductsContext); 
 
       const {dispatch} = useContext(CartContext)
 

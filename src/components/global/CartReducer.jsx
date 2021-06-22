@@ -24,7 +24,6 @@ const CartReducer = (state, action) => {
                      shoppingCart:[product,...shoppingCart], totalPrice: updatedPrice, totalQty: updatedQty
                  }
              }
-             break;
              case 'INC':
                 product = action.cart;
                 product.qty = ++product.qty;
@@ -36,7 +35,6 @@ const CartReducer = (state, action) => {
                 return {
                     shoppingCart: [...shoppingCart], totalPrice: updatedPrice, totalQty: updatedQty
                 }
-                break;
     
             case 'DEC':
                 product = action.cart;
@@ -54,8 +52,7 @@ const CartReducer = (state, action) => {
                 else {
                     return state;
                 }
-                break;
-    
+   
             case 'DELETE':
                 const filtered = shoppingCart.filter(product => product.ProductID !== action.id);
                 product = action.cart;
@@ -64,7 +61,6 @@ const CartReducer = (state, action) => {
                 return {
                     shoppingCart: [...filtered], totalPrice: updatedPrice, totalQty: updatedQty
                 }
-                break;
     
             case 'EMPTY':
                 return {
