@@ -31,7 +31,7 @@ import { CartContext } from '../global/CartContext';
           setFilter({ filter: event.target.value, productss: heighestPriceProduct });
         } if (event.target.value === "latest") {
           const latestPriceProduct = products.sort((a, b) => {
-            return a.ProductID - b.ProductID;
+            return a.ProductsID - b.ProductsID;
           })
             setFilter({ filter: event.target.value, productss: latestPriceProduct });
         }
@@ -45,7 +45,7 @@ import { CartContext } from '../global/CartContext';
         products.map((item) => brandArray.push(item.ProductBrand));
         brandArray = new Set(brandArray);
         setBrand(["All", ...brandArray]);
-      }, []);
+      }, [products]);
 
       const filterBrands = (event) => {
         if (event.target.value === "All") {
@@ -80,7 +80,7 @@ import { CartContext } from '../global/CartContext';
 
     const openModal = (id) => {
     setModalOpen(true);
-    const singleProduct = products.find((product) => product.DocID === id);
+    const singleProduct = products.find((product) => product.ProductID === id);
     setSingleProduct(singleProduct);
   };
     
@@ -136,9 +136,9 @@ import { CartContext } from '../global/CartContext';
                     return val
                   }
                 }).map(product => (
-                    <div className='product-card' key={product.DocID}>
+                    <div className='product-card' key={product.ProductID}>
                         <div>
-                            <img src={product.ProductImg} alt="not found" onClick={() => openModal(product.DocID)}/>
+                            <img src={product.ProductImg} alt="not found" onClick={() => openModal(product.ProductID)}/>
                         </div>
                         <div className='product-name'>
                             {product.ProductName}
@@ -146,7 +146,7 @@ import { CartContext } from '../global/CartContext';
                         <div className='product-price'>
                             Rs {product.ProductPrice}
                     </div>
-                        <button className='btn' onClick = {() => (dispatch({type: 'ADD_to_CART', id: product.DocID,product}))}>ADD TO CART</button>
+                        <button className='btn' onClick = {() => (dispatch({type: 'ADD_to_CART', id: product.ProductID,product}))}>ADD TO CART</button>
                     </div>
                 ))}
             </div>
@@ -161,7 +161,7 @@ import { CartContext } from '../global/CartContext';
           <p> {singleProduct.ProductDetails}</p>
           <div className="product_price">
           <div><strong><p>Rs {singleProduct.ProductPrice}</p></strong></div>
-          <button className="product_btn" onClick = {() => (dispatch({type: 'ADD_to_CART', id: singleProduct.DocID,singleProduct}))}>Add to cart</button>
+          <button className="product_btn" onClick = {() => (dispatch({type: 'ADD_to_CART', id: singleProduct.ProductID,singleProduct}))}>Add to cart</button>
           </div>
           </div>
         </div>

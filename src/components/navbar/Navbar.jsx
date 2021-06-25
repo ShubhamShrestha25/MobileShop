@@ -160,7 +160,7 @@ const Navbar = () => {
                             <span>Total Qty: </span>
                             <span>{totalQty}</span>
                         </div>
-                            <button className='btn' style={{ marginTop: 10 + 'px' }} onClick={() => checkout.show({amount: 1000})}>
+                            <button className='btn' style={{ marginTop: 10 + 'px' }} onClick={() => checkout.show({amount: 10000})}>
                                 Checkout
                         </button>
                     </div>
