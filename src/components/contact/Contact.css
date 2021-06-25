@@ -24,7 +24,6 @@
 }
 
 .content p {
-  font-weight: 300;
   color: #fff;
   margin-bottom: 25px;
   position: relative;
@@ -149,16 +148,18 @@ textarea:valid ~ span {
   .contactInfo {
     position: relative;
     right: 40px;
-    top: 10px;
+    top: 30px;
     margin-bottom: 40px;
   }
   .contactForm {
     width: 100%;
   }
   .content h2 {
-    bottom: -35px;
+    bottom: -43px;
+    left: 10px;
   }
   .content p {
-    bottom: -45px;
+    bottom: -70px;
+    font-size: 16px;
   }
 }

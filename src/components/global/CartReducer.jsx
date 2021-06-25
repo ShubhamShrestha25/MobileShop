@@ -9,7 +9,7 @@ const CartReducer = (state, action) => {
 
     switch(action.type){
         case 'ADD_to_CART':
-            const check = shoppingCart.find(product => product.ProductID === action.id);
+            const check = shoppingCart.find(product => product.DocID === action.id);
             if(check){
                 alert("Product is alreay in your cart")
                 return state;
@@ -30,7 +30,7 @@ const CartReducer = (state, action) => {
                 product.TotalProductPrice = product.qty * product.ProductPrice;
                 updatedQty = totalQty + 1;
                 updatedPrice = totalPrice + product.ProductPrice;
-                index = shoppingCart.findIndex(cart => cart.ProductID === action.id);
+                index = shoppingCart.findIndex(cart => cart.DocID === action.id);
                 shoppingCart[index] = product;
                 return {
                     shoppingCart: [...shoppingCart], totalPrice: updatedPrice, totalQty: updatedQty
@@ -43,7 +43,7 @@ const CartReducer = (state, action) => {
                     product.TotalProductPrice = product.qty * product.ProductPrice;
                     updatedPrice = totalPrice - product.ProductPrice;
                     updatedQty = totalQty - 1;
-                    index = shoppingCart.findIndex(cart => cart.ProductID === action.id);
+                    index = shoppingCart.findIndex(cart => cart.DocID === action.id);
                     shoppingCart[index] = product;
                     return {
                         shoppingCart: [...shoppingCart], totalPrice: updatedPrice, totalQty: updatedQty
@@ -54,7 +54,7 @@ const CartReducer = (state, action) => {
                 }
    
             case 'DELETE':
-                const filtered = shoppingCart.filter(product => product.ProductID !== action.id);
+                const filtered = shoppingCart.filter(product => product.DocID !== action.id);
                 product = action.cart;
                 updatedQty = totalQty - product.qty;
                 updatedPrice = totalPrice - product.qty * product.ProductPrice;

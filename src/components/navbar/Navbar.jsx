@@ -12,6 +12,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import { Scrollbars } from 'react-custom-scrollbars';
+import config from '../khalti/KhaltiConfig';
+import KhaltiCheckout from "khalti-checkout-web";
 
 
 const safeDocument = typeof document !== 'undefined' ? document : {};
@@ -79,10 +81,15 @@ const Navbar = () => {
         <button className="login" onClick={() => loginHandler(provider)}>LogIn</button>
     )
 
+    // checkout with khalti \\
+    let checkout = new KhaltiCheckout(config);
+
+
+
     return (
         <div className={navbar ? 'navbaractive' : 'navbar'} ref={divRef}>
             <h1 className="navbar-logo" onClick={() => scroll.scrollToTop()}>
-                MoB-ShoP
+                MoBify
             </h1>
             <div className="menu-icon" onClick={clickHandler}>
                 {clicked ? <CloseIcon /> : <MenuIcon />}
@@ -153,7 +160,7 @@ const Navbar = () => {
                             <span>Total Qty: </span>
                             <span>{totalQty}</span>
                         </div>
-                            <button className='btn' style={{ marginTop: 10 + 'px' }}>
+                            <button className='btn' style={{ marginTop: 10 + 'px' }} onClick={() => checkout.show({amount: 1000})}>
                                 Checkout
                         </button>
                     </div>
