@@ -92,7 +92,7 @@ import { CartContext } from '../global/CartContext';
       setSearch(e.target.value)
     }
 
-
+    console.log(products)
     return (
         <div className="products" id="product">
             <h1>Products</h1>
@@ -135,6 +135,7 @@ import { CartContext } from '../global/CartContext';
                   } if (val.ProductName.toLowerCase().includes(search.toLowerCase())){
                     return val
                   }
+                
                 }).map(product => (
                     <div className='product-card' key={product.ProductID}>
                         <div>
@@ -142,31 +143,32 @@ import { CartContext } from '../global/CartContext';
                         </div>
                         <div className='product-name'>
                             {product.ProductName}
-                        </div>
+                        </div>     
                         <div className='product-price'>
                             Rs {product.ProductPrice}
-                    </div>
+                        </div>
+                          <div> 
+                          <Modal  isOpen={modalOpen} onRequestClose={() => setModalOpen(false)} ariaHideApp={false} style={customStyles} >
+                            <Zoom >
+                            <button className="closeModal" onClick={() => setModalOpen(false)}>X</button>
+                            <div className="product_details">
+                            <img src={singleProduct.ProductImg} alt={singleProduct.ProductName} />
+                            <div className="product_details_description">
+                            <p> <strong>{singleProduct.ProductName}</strong></p>
+                            <p> {singleProduct.ProductDetails}</p>
+                            <div className="product_price">
+                            <div><strong><p>Rs {singleProduct.ProductPrice}</p></strong></div>
+                            <button className="product_btn" onClick = {() => (dispatch({type: 'ADD_to_CART', id: product.ProductID,product,singleProduct}))}>Add to cart</button>
+                            </div>
+                            </div>
+                            </div>
+                            </Zoom>
+                            </Modal>
+                            </div>
                         <button className='btn' onClick = {() => (dispatch({type: 'ADD_to_CART', id: product.ProductID,product}))}>ADD TO CART</button>
                     </div>
                 ))}
             </div>
-            
-      <Modal  isOpen={modalOpen} onRequestClose={() => setModalOpen(false)} ariaHideApp={false} style={customStyles} >
-        <Zoom >
-        <button className="closeModal" onClick={() => setModalOpen(false)}>X</button>
-        <div className="product_details">
-          <img src={singleProduct.ProductImg} alt={singleProduct.ProductName} />
-          <div className="product_details_description">
-          <p> <strong>{singleProduct.ProductName}</strong></p>
-          <p> {singleProduct.ProductDetails}</p>
-          <div className="product_price">
-          <div><strong><p>Rs {singleProduct.ProductPrice}</p></strong></div>
-          <button className="product_btn" onClick = {() => (dispatch({type: 'ADD_to_CART', id: singleProduct.ProductID,singleProduct}))}>Add to cart</button>
-          </div>
-          </div>
-        </div>
-        </Zoom>
-      </Modal>
         </div>
     )
 }
