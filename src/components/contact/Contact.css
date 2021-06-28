@@ -122,8 +122,8 @@ input[type="email"]:focus ~ span,
 input[type="email"]:valid ~ span,
 textarea:focus ~ span,
 textarea:valid ~ span {
-  color: #e91e63;
-  font-size: 12px;
+  color: #0e0d0d;
+  font-size: 15px;
   transform: translateY(-20px);
 }
 

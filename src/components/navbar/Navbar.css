@@ -218,6 +218,94 @@
   cursor: pointer;
 }
 
+/* modal */
+
+body.active-modal {
+  overflow-y: hidden;
+}
+
+
+
+.details,
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+}
+
+.overlay {
+  background: rgba(49, 49, 49, 0.8);
+}
+.details-content {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 500px;
+  background: #f1f1f1;
+  padding: 25px 28px;
+  border-radius: 15px;
+  width: 500px;
+}
+
+.details-content h2 {
+  margin-bottom: 1rem;
+}
+
+.inputbox {
+  position: relative;
+  width: 100%;
+  margin-top: 13px;
+}
+
+.inputbox input,
+textarea {
+  width: 100%;
+  padding: 5px 0;
+  font-size: 16px;
+  margin: 10px 0;
+  border: none;
+  background: #f1f1f1;
+  border-bottom: 2px solid #333;
+  outline: none;
+  resize: none;
+}
+
+.inputbox span {
+  position: absolute;
+  left: 0;
+  padding: 5px 0;
+  font-size: 16px;
+  margin: 10px 0;
+  pointer-events: none;
+  transition: 0.5s;
+  color: #666;
+}
+
+.inputbox input:focus ~ span,
+input:valid ~ span,
+input[type="email"]:focus ~ span,
+input[type="email"]:valid ~ span textarea:focus ~ span,
+textarea:valid ~ span {
+  color: #0e0d0d;
+  font-size: 16px;
+  transform: translateY(-20px);
+}
+
+
+.inputbox input[type="submit"] {
+  width: 100px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 18px;
+}
+
 @media screen and (max-width: 700px) {
   .nav-menu {
     display: flex;
@@ -306,6 +394,5 @@
   }
   .cart-summary {
     left: 10%;
-    
   }
 }

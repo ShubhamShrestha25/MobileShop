@@ -9,17 +9,15 @@ let config = {
     "eventHandler": {
         onSuccess (payload) {
             // hit merchant api for initiating verfication
-           alert("Payment Successful")
-            
-        
+           console.log(payload)         
         },
         // onError handler is optional
         onError (error) {
             // handle errors
-            alert(error);
+            console.log(error)
         },
     },
-    "paymentPreference": ["KHALTI", "EBANKING"],
+    "paymentPreference": ["KHALTI"],
 };
 
 export default config;

@@ -82,6 +82,13 @@ import { CartContext } from '../global/CartContext';
     setModalOpen(true);
     const singleProduct = products.find((product) => product.ProductID === id);
     setSingleProduct(singleProduct);
+
+      if(modalOpen){
+        document.body.classList.add('active-modal')
+      }
+      else {
+        document.body.classList.remove('active-modal')
+      }
   };
     
     // search \\
@@ -92,7 +99,6 @@ import { CartContext } from '../global/CartContext';
       setSearch(e.target.value)
     }
 
-    console.log(products)
     return (
         <div className="products" id="product">
             <h1>Products</h1>

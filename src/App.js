@@ -8,13 +8,17 @@ import Services from "./components/services/Services";
 import Contact from "./components/contact/Contact";
 import Footer from "./components/footer/Footer";
 import Products from "./components/product/Products";
+import KhaltiCheckout from "khalti-checkout-web";
+import config from "./components/khalti/KhaltiConfig";
 
 function App() {
+  let checkout = new KhaltiCheckout(config);
+
   return (
     <div className="App">
       <ProductsContextProvider>
         <CartContextProvider>
-          <Navbar />
+          <Navbar checkout={checkout} />
           <Hero slides={SliderData} />
           <Products />
           <Services />

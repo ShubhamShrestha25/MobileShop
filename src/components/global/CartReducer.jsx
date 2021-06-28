@@ -5,7 +5,7 @@ const CartReducer = (state, action) => {
     let product;
     let index;
     let updatedPrice;
-    let updatedQty
+    let updatedQty;
 
     switch(action.type){
         case 'ADD_to_CART':
@@ -21,9 +21,10 @@ const CartReducer = (state, action) => {
                  updatedQty = totalQty + 1;
                  updatedPrice = totalPrice + product.ProductPrice;
                  return{
-                     shoppingCart:[product,...shoppingCart], totalPrice: updatedPrice, totalQty: updatedQty
+                     shoppingCart:[product,...shoppingCart], totalPrice: updatedPrice, totalQty: updatedQty,
                  }
              }
+
              case 'INC':
                 product = action.cart;
                 product.qty = ++product.qty;

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext  } from 'react'
+import React, { useRef, useState, useContext } from 'react'
 import { MenuItems } from './MenuItems'
 import './Navbar.css'
 import MenuIcon from '@material-ui/icons/Menu';
@@ -6,19 +6,17 @@ import CloseIcon from '@material-ui/icons/Close';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { animateScroll as scroll, Link } from 'react-scroll';
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
-import {auth, provider } from '../Firebase';
+import {auth, db, provider } from '../Firebase';
 import { CartContext } from '../global/CartContext';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import { Scrollbars } from 'react-custom-scrollbars';
-import config from '../khalti/KhaltiConfig';
-import KhaltiCheckout from "khalti-checkout-web";
 
 
 const safeDocument = typeof document !== 'undefined' ? document : {};
 
-const Navbar = () => {
+const Navbar = ({checkout}) => {
     const { shoppingCart, dispatch, totalPrice, totalQty } = useContext(CartContext);
     const html = safeDocument.documentElement;
     const divRef = useRef(null);
@@ -81,9 +79,42 @@ const Navbar = () => {
         <button className="login" onClick={() => loginHandler(provider)}>LogIn</button>
     )
 
-    // checkout with khalti \\
-    let checkout = new KhaltiCheckout(config);
+    const [details, setDetails] = useState(false); 
+    const [fname, setFname] = useState("")
+    const [lname, setLname] = useState("")
+    const [email, setEmail] = useState("")
+    const [location, setLocation] = useState("")
+    const [number, setNumber] = useState()
+    const [loading, setLoading] = useState(false)
 
+    const toggleModal = () => {
+        setDetails(!details);
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setLoading(true)
+
+        db.collection('shipping').add({
+            fname:fname,
+            lname:lname,
+            email:email,
+            location: location,
+            number: number,
+        })
+        .then(() => {
+            setLoading(false)
+        })
+        .catch(error => {
+            alert(error.message);
+            setLoading(false)
+        });
+        setFname("")
+        setLname("")
+        setEmail("")
+        setLocation("")
+        setNumber()
+    };
 
 
     return (
@@ -103,7 +134,6 @@ const Navbar = () => {
                     )
                 })}
             </ul>
-
             <div className="right">
                 <div className="basket" >
                     <ShoppingCartIcon onClick={openSlider} />
@@ -122,7 +152,7 @@ const Navbar = () => {
                     }
                 </div>
                 {shoppingCart && shoppingCart.map(cart => (
-                        <div className='cart-card' key={cart.ProductID}>
+                        <div className='cart-card' key={cart.ProductID} >
                             <div className='cart-img'>
                                 <img src={cart.ProductImg} alt="not found" />
                             </div>
@@ -160,9 +190,50 @@ const Navbar = () => {
                             <span>Total Qty: </span>
                             <span>{totalQty}</span>
                         </div>
-                            <button className='btn' style={{ marginTop: 10 + 'px' }} onClick={() => checkout.show({ amount: 100 * totalPrice})}>
+                        <button className='btn' style={{ marginTop: 10 + 'px' }} onClick={() => {
+                            toggleModal()
+                            openSlider()
+                        }}>
                                 Checkout
                         </button>
+                        <div>
+                        {details && (
+            <div className="details">
+            <div onClick={toggleModal}  className="overlay"></div>
+            <div className="details-content">
+            <form onSubmit={handleSubmit}>
+                    <h2>Shipping Details</h2>
+                    <div className="inputbox">
+                        <input type="text" name="" required="required" value={fname} onChange={(e) => setFname(e.target.value)}/>
+                        <span>First Name</span>
+                    </div>
+                    <div className="inputbox">
+                        <input type="text" name="" required="required" value={lname} onChange={(e) => setLname(e.target.value)}/>
+                        <span>Last Name</span>
+                    </div>
+                    <div className="inputbox">
+                        <input type="email" name="" required="required" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                        <span>Email</span>
+                    </div>
+                    <div className="inputbox">
+                        <input type="number" name="" required="required" value={number} onChange={(e) => setNumber(e.target.value)}/>
+                        <span>Phone number</span>
+                    </div>
+                    <div className="inputbox">
+                        <input type="text" name="" required="required" value={location} onChange={(e) => setLocation(e.target.value)}/>
+                        <span>Address</span>
+                    </div>
+                    <div className="inputbox">
+                        <input type="submit" name="" value="next" style={{background: loading ? "#ccc" : "rgb(0, 0, 0)" }} onClick={() => checkout.show({ amount: 100 * totalPrice})}/>
+                    </div>
+                </form>
+            <button className="closebtn" onClick={toggleModal}>
+            <CloseRoundedIcon />
+            </button>
+          </div>
+        </div>
+      )}
+                        </div>
                     </div>
                     }
                 </>
