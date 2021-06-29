@@ -134,15 +134,15 @@ import { CartContext } from '../global/CartContext';
                   <SearchIcon className="search-icon"/>
               </div>
             </div>
-            <div className='products-container'>
+            <div className='products-container'>  
                 {products.filter((val) => {
                   if (search === ""){
                     return val
                   } if (val.ProductName.toLowerCase().includes(search.toLowerCase())){
                     return val
-                  }
-                
-                }).map(product => (
+                  }        
+                }
+                ).map(product => (
                     <div className='product-card' key={product.ProductID}>
                         <div>
                             <img src={product.ProductImg} alt="not found" onClick={() => openModal(product.ProductID)}/>

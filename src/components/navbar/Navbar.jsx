@@ -1,5 +1,4 @@
 import React, { useRef, useState, useContext } from 'react'
-import { MenuItems } from './MenuItems'
 import './Navbar.css'
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
@@ -126,25 +125,26 @@ const Navbar = ({checkout}) => {
                 {clicked ? <CloseIcon /> : <MenuIcon />}
             </div>
             <ul className={clicked ? 'nav-menu active' : 'nav-menu'}>
-                {MenuItems.map((item, index) => {
-                    return (
-                        <li key={index} >
-                            <Link onClick={() => multipleFunction()} className={item.cName} to={item.url} smooth={true} duration={1000} >{item.title}</Link>
+                        <li>
+                            <Link onClick={() => multipleFunction()} className='nav-links' to="home" smooth={true} duration={1000} >Home</Link>
                         </li>
-                    )
-                })}
+                        <li>
+                            <Link onClick={() => multipleFunction()} className='nav-links' to="product" smooth={true} duration={1000} >Products</Link>
+                        </li>
+                        <li>
+                            <Link onClick={() => multipleFunction()} className='nav-links' to="service" smooth={true} duration={1000} >Service</Link>
+                        </li>
+                        <li>
+                            <Link onClick={() => multipleFunction()} className='nav-links' to="contact" smooth={true} duration={1000} >Contact</Link>
+                        </li>
             </ul>
-            <div className="right">
-                <div className="basket" >
-                    <ShoppingCartIcon onClick={openSlider} />
-                    <span>{totalQty}</span>
-                </div>
+            <div>
                 <div className={open ? 'sidemenu active' : 'sidemenu'}>
                 <Scrollbars style={{ width: "100%", height: "100%"}}>
                     <h1>Shopping Cart</h1>
                     <button className="closebtn" onClick={openSlider}><CloseRoundedIcon /></button>
                 <>
-                <div className='cart-container' id="style-4">
+                <div className='cart-container' >
                     {
                         shoppingCart.length === 0 && <>
                             <div>Cart is empty!</div>
@@ -197,11 +197,11 @@ const Navbar = ({checkout}) => {
                                 Checkout
                         </button>
                         <div>
-                        {details && (
-            <div className="details">
-            <div onClick={toggleModal}  className="overlay"></div>
-            <div className="details-content">
-            <form onSubmit={handleSubmit}>
+                {details && (
+                <div className="details">
+                <div onClick={toggleModal}  className="overlay"></div>
+                <div className="details-content">
+                <form onSubmit={handleSubmit}>
                     <h2>Shipping Details</h2>
                     <div className="inputbox">
                         <input type="text" name="" required="required" value={fname} onChange={(e) => setFname(e.target.value)}/>
@@ -227,22 +227,27 @@ const Navbar = ({checkout}) => {
                         <input type="submit" name="" value="next" style={{background: loading ? "#ccc" : "rgb(0, 0, 0)" }} onClick={() => checkout.show({ amount: 100 * totalPrice})}/>
                     </div>
                 </form>
-            <button className="closebtn" onClick={toggleModal}>
-            <CloseRoundedIcon />
-            </button>
-          </div>
-        </div>
-      )}
-                        </div>
-                    </div>
-                    }
+                <button className="closebtn" onClick={toggleModal}>
+                <CloseRoundedIcon />
+                </button>
+                </div>
+                </div>
+                 )}
+                </div>
+                </div>
+                 }
                 </>
+                
                 </Scrollbars>
                 </div>
-                <div>
-                {isLoggedIn  ? logoutLink : loginLink}
-                </div>
+            </div> 
+            <div className="right">
+            <div className="basket" >
+            <ShoppingCartIcon onClick={openSlider} />
+            <span>{totalQty}</span>
             </div>
+            {isLoggedIn  ? logoutLink : loginLink}
+            </div>    
         </div>
         
     )

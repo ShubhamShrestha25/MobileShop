@@ -71,7 +71,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1.3rem;
 }
 
 .basket {
@@ -79,7 +78,8 @@
   position: relative;
   top: 0.2rem;
   color: white;
-  right: 0.2rem;
+  right: 1.5rem;
+  z-index: -10;
 }
 
 .basket span {
@@ -104,8 +104,10 @@
   padding: 14px 28px;
   font-size: 12px;
   cursor: pointer;
+  position: relative;
   outline: none;
   display: inline-block;
+  z-index: -10;
 }
 
 .logout {
@@ -224,8 +226,6 @@ body.active-modal {
   overflow-y: hidden;
 }
 
-
-
 .details,
 .overlay {
   width: 100vw;
@@ -296,7 +296,6 @@ textarea:valid ~ span {
   transform: translateY(-20px);
 }
 
-
 .inputbox input[type="submit"] {
   width: 100px;
   color: #fff;
@@ -357,7 +356,7 @@ textarea:valid ~ span {
   }
   .basket {
     position: absolute;
-    right: 4rem;
+    right: 3.5rem;
     top: 1.3rem;
   }
 
@@ -365,7 +364,7 @@ textarea:valid ~ span {
     font-size: 12px;
     width: 18px;
     height: 19px;
-    right: -12px;
+    right: -10px;
   }
 
   .sidemenu {
@@ -394,5 +393,11 @@ textarea:valid ~ span {
   }
   .cart-summary {
     left: 10%;
+  }
+  .login,
+  .logout {
+    padding: 10px;
+    bottom: 0.4rem;
+    margin-right: 0.4rem;
   }
 }
