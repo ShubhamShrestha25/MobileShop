@@ -31,7 +31,7 @@
   width: 40vw;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 .nav-links {
@@ -67,18 +67,11 @@
   cursor: pointer;
 }
 
-.right {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .basket {
   display: flex;
-  position: relative;
-  top: 0.2rem;
+  position: fixed;
   color: white;
-  right: 1.5rem;
+  right: 190px;
   z-index: -10;
 }
 
@@ -296,10 +289,18 @@ textarea:valid ~ span {
   transform: translateY(-20px);
 }
 
-.inputbox input[type="submit"] {
+.inputbox button:enabled {
   width: 100px;
-  color: #fff;
+  background: rgb(10, 10, 10);
+  color: rgb(255, 255, 255);
   border: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 18px;
+}
+
+.inputbox button:disabled {
+  width: 100px;
   cursor: pointer;
   padding: 10px;
   font-size: 18px;
@@ -355,7 +356,7 @@ textarea:valid ~ span {
     font-size: 1.8rem;
   }
   .basket {
-    position: absolute;
+    position: fixed;
     right: 3.5rem;
     top: 1.3rem;
   }
@@ -396,7 +397,7 @@ textarea:valid ~ span {
   }
   .login,
   .logout {
-    padding: 10px;
+    padding: 10px 15px;
     bottom: 0.4rem;
     margin-right: 0.4rem;
   }

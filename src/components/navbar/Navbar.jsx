@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext } from 'react'
+import React, { useRef, useState, useContext, useEffect } from 'react'
 import './Navbar.css'
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
@@ -11,6 +11,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import { Scrollbars } from 'react-custom-scrollbars';
+import KhaltiCheckout from "khalti-checkout-web";
+import config from "../khalti/KhaltiConfig"
 
 
 const safeDocument = typeof document !== 'undefined' ? document : {};
@@ -112,9 +114,16 @@ const Navbar = ({checkout}) => {
         setLname("")
         setEmail("")
         setLocation("")
-        setNumber()
+        setNumber("")
     };
 
+
+    //khalti\\
+    const [khalti,setKhalti] = useState()
+    useEffect(() => {
+        checkout= new KhaltiCheckout(config)  
+        setKhalti(checkout) 
+    }, [])
 
     return (
         <div className={navbar ? 'navbaractive' : 'navbar'} ref={divRef}>
@@ -124,20 +133,23 @@ const Navbar = ({checkout}) => {
             <div className="menu-icon" onClick={clickHandler}>
                 {clicked ? <CloseIcon /> : <MenuIcon />}
             </div>
-            <ul className={clicked ? 'nav-menu active' : 'nav-menu'}>
-                        <li>
+            <div className={clicked ? 'nav-menu active' : 'nav-menu'}>
+                        
                             <Link onClick={() => multipleFunction()} className='nav-links' to="home" smooth={true} duration={1000} >Home</Link>
-                        </li>
-                        <li>
+                        
+                        
                             <Link onClick={() => multipleFunction()} className='nav-links' to="product" smooth={true} duration={1000} >Products</Link>
-                        </li>
-                        <li>
+                        
+                        
                             <Link onClick={() => multipleFunction()} className='nav-links' to="service" smooth={true} duration={1000} >Service</Link>
-                        </li>
-                        <li>
+                        
                             <Link onClick={() => multipleFunction()} className='nav-links' to="contact" smooth={true} duration={1000} >Contact</Link>
-                        </li>
-            </ul>
+                        
+                        <div className="basket" >
+                        <ShoppingCartIcon onClick={openSlider} />
+                        <span>{totalQty}</span>
+                        </div>
+            </div>
             <div>
                 <div className={open ? 'sidemenu active' : 'sidemenu'}>
                 <Scrollbars style={{ width: "100%", height: "100%"}}>
@@ -224,7 +236,7 @@ const Navbar = ({checkout}) => {
                         <span>Address</span>
                     </div>
                     <div className="inputbox">
-                        <input type="submit" name="" value="next" style={{background: loading ? "#ccc" : "rgb(0, 0, 0)" }} onClick={() => checkout.show({ amount: 100 * totalPrice})}/>
+                        <button type="submit"  onClick={() => khalti.show({ amount: 100 * totalPrice})}> Next </button>
                     </div>
                 </form>
                 <button className="closebtn" onClick={toggleModal}>
@@ -239,15 +251,9 @@ const Navbar = ({checkout}) => {
                 </>
                 
                 </Scrollbars>
-                </div>
-            </div> 
-            <div className="right">
-            <div className="basket" >
-            <ShoppingCartIcon onClick={openSlider} />
-            <span>{totalQty}</span>
-            </div>
-            {isLoggedIn  ? logoutLink : loginLink}
+                </div>           
             </div>    
+            {isLoggedIn  ? logoutLink : loginLink}
         </div>
         
     )
