@@ -17,7 +17,7 @@ import config from "../khalti/KhaltiConfig"
 
 const safeDocument = typeof document !== 'undefined' ? document : {};
 
-const Navbar = ({checkout}) => {
+const Navbar = () => {
     const { shoppingCart, dispatch, totalPrice, totalQty } = useContext(CartContext);
     const html = safeDocument.documentElement;
     const divRef = useRef(null);
@@ -81,47 +81,64 @@ const Navbar = ({checkout}) => {
     )
 
     const [details, setDetails] = useState(false); 
-    const [fname, setFname] = useState("")
-    const [lname, setLname] = useState("")
-    const [email, setEmail] = useState("")
-    const [location, setLocation] = useState("")
-    const [number, setNumber] = useState()
-    const [loading, setLoading] = useState(false)
+    const [disable, setDisable] = useState(true); 
+    const [user, setUser] = useState({
+        fname: "",
+        lname: "",
+        phone: "",
+        location: "",
+      });
 
     const toggleModal = () => {
         setDetails(!details);
     };
 
+    const handleInputs = (e) => {
+        let name = e.target.name;
+        let value = e.target.value;
+        setUser({ ...user, [name]: value });
+
+        if(user.fname.length >1 && user.lname.length >1  && user.location.length >1 ){
+            setDisable(false)
+        }
+
+        if(user.fname.length <=1  || user.lname.length <=1  || user.location.length <=1 || user.phone.length <= 8 ){
+            setDisable(true)
+        }
+      };
+
+
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        setLoading(true)
 
         db.collection('shipping').add({
-            fname:fname,
-            lname:lname,
-            email:email,
-            location: location,
-            number: number,
+            fname:(user.fname),
+            lname:(user.lname),
+            location:(user.location),
+            phone: (user.phone),
         })
         .then(() => {
-            setLoading(false)
+            toggleModal()
         })
         .catch(error => {
             alert(error.message);
-            setLoading(false)
         });
-        setFname("")
-        setLname("")
-        setEmail("")
-        setLocation("")
-        setNumber("")
+        
+        setUser({
+            fname: "",
+            lname: "",
+            phone: "",
+            location: "",
+          });
     };
 
 
     //khalti\\
     const [khalti,setKhalti] = useState()
     useEffect(() => {
-        checkout= new KhaltiCheckout(config)  
+        let checkout= new KhaltiCheckout(config)  
         setKhalti(checkout) 
     }, [])
 
@@ -216,27 +233,23 @@ const Navbar = ({checkout}) => {
                 <form onSubmit={handleSubmit}>
                     <h2>Shipping Details</h2>
                     <div className="inputbox">
-                        <input type="text" name="" required="required" value={fname} onChange={(e) => setFname(e.target.value)}/>
+                        <input type="text" autoComplete="off" name="fname"  required="required" value={user.fname} onChange={handleInputs} />
                         <span>First Name</span>
                     </div>
                     <div className="inputbox">
-                        <input type="text" name="" required="required" value={lname} onChange={(e) => setLname(e.target.value)}/>
+                        <input type="text"  autoComplete="off" name="lname" required="required" value={user.lname} onChange={handleInputs}/>
                         <span>Last Name</span>
                     </div>
                     <div className="inputbox">
-                        <input type="email" name="" required="required" value={email} onChange={(e) => setEmail(e.target.value)}/>
-                        <span>Email</span>
-                    </div>
-                    <div className="inputbox">
-                        <input type="number" name="" required="required" value={number} onChange={(e) => setNumber(e.target.value)}/>
+                        <input type="number"   autoComplete="off" name="phone" required="required" value={user.phone} onChange={handleInputs}/>
                         <span>Phone number</span>
                     </div>
                     <div className="inputbox">
-                        <input type="text" name="" required="required" value={location} onChange={(e) => setLocation(e.target.value)}/>
+                        <input type="text"  autoComplete="off" name="location" required="required" value={user.location} onChange={handleInputs}/>
                         <span>Address</span>
                     </div>
                     <div className="inputbox">
-                        <button type="submit"  onClick={() => khalti.show({ amount: 100 * totalPrice})}> Next </button>
+                        <button type="submit" disabled={disable} onSubmit={toggleModal} onClick={() => khalti.show({ amount: 100 * totalPrice})}> Next </button>
                     </div>
                 </form>
                 <button className="closebtn" onClick={toggleModal}>
