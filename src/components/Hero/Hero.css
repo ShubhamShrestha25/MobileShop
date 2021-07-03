@@ -52,7 +52,8 @@
 }
 
 .arrow:hover {
-  background: #0000ff;
+  background: #ffffff;
+  color: #000000;
   transform: scale(1.05);
 }
 

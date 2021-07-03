@@ -5,6 +5,7 @@ import Modal from "react-modal";
 import Zoom from "react-reveal/Zoom";
 import SearchIcon from '@material-ui/icons/Search';
 import { CartContext } from '../global/CartContext';
+import Pagination from '@material-ui/lab/Pagination';
 
  const Products = () => {
 
@@ -99,6 +100,9 @@ import { CartContext } from '../global/CartContext';
       setSearch(e.target.value)
     }
 
+    
+
+
     return (
         <div className="products" id="product">
             <h1>Products</h1>
@@ -174,7 +178,10 @@ import { CartContext } from '../global/CartContext';
                         <button className='btn' onClick = {() => (dispatch({type: 'ADD_to_CART', id: product.ProductID,product}))}>ADD TO CART</button>
                     </div>
                 ))}
+                <div>
+                </div>
             </div>
+            <Pagination style={{display:"flex", justifyContent: "center", padding:"3rem" }} count= {4} size="large" />
         </div>
     )
 }
