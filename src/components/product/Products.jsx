@@ -5,7 +5,9 @@ import Modal from "react-modal";
 import Zoom from "react-reveal/Zoom";
 import SearchIcon from '@material-ui/icons/Search';
 import { CartContext } from '../global/CartContext';
-import Pagination from '@material-ui/lab/Pagination';
+import Pagination from './Pagination';
+import Rating from '@material-ui/lab/Rating';
+
 
  const Products = () => {
 
@@ -36,6 +38,18 @@ import Pagination from '@material-ui/lab/Pagination';
           })
             setFilter({ filter: event.target.value, productss: latestPriceProduct });
         }
+        if (event.target.value === "highest-star") {
+          const heighestStarValue = products.sort((a, b) => {
+            return b.ProductRating - a.ProductRating;
+          })
+          setFilter({ filter: event.target.value, productss: heighestStarValue });
+        }
+        if (event.target.value === "lowest-star") {
+          const lowestStarValue = products.sort((a, b) => {
+            return a.ProductRating - b.ProductRating;
+          })
+          setFilter({ filter: event.target.value, productss: lowestStarValue });
+        }
       };
 
       // Filtering Brand \\
@@ -55,7 +69,7 @@ import Pagination from '@material-ui/lab/Pagination';
           setFilter({
             filter: event.target.value,
             products: products.filter(
-              (product) => product.brand.indexOf(event.target.value) >= 0
+              (product) => product.ProductBrand.indexOf(event.target.value) >= 0
             ),
           });
         }
@@ -100,8 +114,16 @@ import Pagination from '@material-ui/lab/Pagination';
       setSearch(e.target.value)
     }
 
-    
-
+    // Pagination \\
+    const [showPerPage] = useState(9);
+    const [pagination, setPagination] = useState({
+      start: 0,
+      end: showPerPage,
+    });
+  
+    const onPaginationChange = (start, end) => {
+      setPagination({ start: start, end: end });
+    };
 
     return (
         <div className="products" id="product">
@@ -113,6 +135,8 @@ import Pagination from '@material-ui/lab/Pagination';
             <option value="latest">Latest</option>
             <option value="lowest">Lowest</option>
             <option value="highest">Highest</option>
+            <option value="highest-star">High Rating</option>
+            <option value="lowest-star">Low Rating</option>
           </select>
             </div>
             <div className="brand">
@@ -146,14 +170,17 @@ import Pagination from '@material-ui/lab/Pagination';
                     return val
                   }        
                 }
-                ).map(product => (
+                ).slice(pagination.start, pagination.end).map(product => (
                     <div className='product-card' key={product.ProductID}>
                         <div>
                             <img src={product.ProductImg} alt="not found" onClick={() => openModal(product.ProductID)}/>
                         </div>
                         <div className='product-name'>
                             {product.ProductName}
-                        </div>     
+                        </div> 
+                      <div className="star-rating"> 
+                        <Rating  value={parseInt(product.ProductRating)} precision={0.5} size="large" readOnly />
+                         </div>
                         <div className='product-price'>
                             Rs {product.ProductPrice}
                         </div>
@@ -168,7 +195,7 @@ import Pagination from '@material-ui/lab/Pagination';
                             <p> {singleProduct.ProductDetails}</p>
                             <div className="product_price">
                             <div><strong><p>Rs {singleProduct.ProductPrice}</p></strong></div>
-                            <button className="product_btn" onClick = {() => (dispatch({type: 'ADD_to_CART', id: product.ProductID,product,singleProduct}))}>Add to cart</button>
+                            <button className="product_btn" onClick = {() => (dispatch({type: 'ADD_to_CART', id: product.ProductID,singleProduct}))}>Add to cart</button>
                             </div>
                             </div>
                             </div>
@@ -181,7 +208,9 @@ import Pagination from '@material-ui/lab/Pagination';
                 <div>
                 </div>
             </div>
-            <Pagination style={{display:"flex", justifyContent: "center", padding:"3rem" }} count= {4} size="large" />
+          {!search && <Pagination showPerPage={showPerPage}
+          onPaginationChange={onPaginationChange}
+          total={products.length}/>}
         </div>
     )
 }

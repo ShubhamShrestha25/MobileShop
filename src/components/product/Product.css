@@ -22,6 +22,10 @@
   font-size: 60px;
 }
 
+.star-rating {
+  position: relative;
+  bottom: 1.5rem;
+}
 .products-container img {
   width: 250px;
   cursor: pointer;
@@ -30,7 +34,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30%;
+  width: 33%;
   border-radius: 15px;
   flex-direction: column;
   position: relative;
@@ -58,7 +62,7 @@
   font-size: 20px;
   font-weight: bold;
   position: relative;
-  top: -1.5rem;
+  top: -1rem;
   cursor: default;
 }
 
@@ -153,6 +157,21 @@
   font-size: 25px;
   border: none;
   background-color: Transparent;
+}
+
+/* pagination */
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+  gap: 5rem;
+}
+
+.pagination-arrow {
+  outline: none;
+  border: none;
+  background: #fff;
 }
 
 @media screen and (max-width: 700px) {
