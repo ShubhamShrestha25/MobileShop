@@ -406,9 +406,8 @@ textarea:valid ~ span {
     margin-right: 0.4rem;
   }
 
-  .details-content{
+  .details-content {
     top: 45%;
     width: 350px;
   }
-
 }

@@ -9,13 +9,12 @@ import Contact from "./components/contact/Contact";
 import Footer from "./components/footer/Footer";
 import Products from "./components/product/Products";
 
-
-function App() { 
+function App() {
   return (
     <div className="App">
       <ProductsContextProvider>
         <CartContextProvider>
-          <Navbar  />
+          <Navbar />
           <Hero slides={SliderData} />
           <Products />
           <Services />

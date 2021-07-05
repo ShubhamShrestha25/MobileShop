@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-
-
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 const Pagination = ({ showPerPage, onPaginationChange, total }) => {
   const [counter, setCounter] = useState(1);
@@ -21,7 +19,6 @@ const Pagination = ({ showPerPage, onPaginationChange, total }) => {
       }
     } else if (type === "next") {
       if (Math.ceil(total / showPerPage) === counter) {
-
         setCounter(counter);
       } else {
         setCounter(counter + 1);
@@ -30,13 +27,18 @@ const Pagination = ({ showPerPage, onPaginationChange, total }) => {
   };
   return (
     <div className="pagination-container">
-      <button className="pagination-arrow" onClick={() => onButtonClick("prev")}>
+      <button
+        className="pagination-arrow"
+        onClick={() => onButtonClick("prev")}
+      >
         <ArrowBackIosIcon fontSize="large" />
       </button>
-      <button  className="pagination-arrow" onClick={() => onButtonClick("next")}>
-        <ArrowForwardIosIcon fontSize="large"/>
+      <button
+        className="pagination-arrow"
+        onClick={() => onButtonClick("next")}
+      >
+        <ArrowForwardIosIcon fontSize="large" />
       </button>
-
     </div>
   );
 };
