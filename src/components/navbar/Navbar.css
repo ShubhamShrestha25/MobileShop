@@ -71,7 +71,7 @@
   display: flex;
   position: fixed;
   color: white;
-  right: 190px;
+  right: 175px;
   z-index: -10;
 }
 
@@ -94,7 +94,7 @@
 .logout {
   border: none;
   border-radius: 28px;
-  padding: 14px 28px;
+  padding: 14px 20px;
   font-size: 12px;
   cursor: pointer;
   position: relative;
@@ -305,6 +305,56 @@ textarea:valid ~ span {
   padding: 10px;
   font-size: 18px;
 }
+
+.dropdown {
+  position: absolute;
+  top: 55px;
+  right: -32px;
+  background: #fff;
+  width: 100px;
+  padding: 27px 20px;
+  border-radius: 15px;
+  transition: 0.5s;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.dropdown.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.dropdown::before {
+  content: "";
+  position: absolute;
+  right: 42px;
+  top: -5px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  transform: rotate(45deg);
+}
+
+.dropdown h1 {
+  position: relative;
+  padding-bottom: 15px;
+  font-size: 18px;
+  cursor: default;
+}
+
+.dropdown h2 {
+  position: relative;
+  font-size: 18px;
+  top: 10px;
+  cursor: pointer;
+}
+
+.rightDropdown {
+  position: relative;
+  top: -3px;
+  z-index: -10;
+}
+
 @media screen and (max-width: 1600px) {
   .sidemenu {
     width: 100%;
@@ -409,5 +459,10 @@ textarea:valid ~ span {
   .details-content {
     top: 45%;
     width: 350px;
+  }
+
+  .rightDropdown {
+    right: 5px;
+    top: -5px;
   }
 }

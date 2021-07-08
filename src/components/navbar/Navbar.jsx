@@ -2,6 +2,7 @@ import React, { useRef, useState, useContext, useEffect } from "react";
 import "./Navbar.css";
 import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
+import Avatar from "@material-ui/core/Avatar";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { animateScroll as scroll, Link } from "react-scroll";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
@@ -28,7 +29,7 @@ const Navbar = () => {
   const changeBackground = () => {
     if (window.scrollY > 100) {
       setNavbar(true);
-      // divRef.current.className = "navbaractive";
+      divRef.current.className = "navbaractive";
     } else {
       setNavbar(false);
     }
@@ -61,29 +62,17 @@ const Navbar = () => {
   };
 
   // login & logout \\
-  const loginHandler = () => {
-    auth.signInWithPopup(provider);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const loginHandler = async () => {
+    await auth.signInWithPopup(provider);
+    setIsLoggedIn(!isLoggedIn);
   };
 
   const logoutHandler = async () => {
-    await auth.signOut().then(() => {
-      console.log("user signed out");
-    });
+    await auth.signOut();
+    setIsLoggedIn(!isLoggedIn);
   };
-
-  const [isLoggedIn] = useState(false);
-
-  const logoutLink = (
-    <button className="logout" onClick={() => logoutHandler()}>
-      Logout
-    </button>
-  );
-
-  const loginLink = (
-    <button className="login" onClick={() => loginHandler(provider)}>
-      LogIn
-    </button>
-  );
 
   // Shopping Details \\
 
@@ -154,6 +143,12 @@ const Navbar = () => {
     let checkout = new KhaltiCheckout(config);
     setKhalti(checkout);
   }, []);
+
+  // dropdown menu  \\
+  const [dropDownOpen, setDropDownOpen] = useState(false);
+  const dropdownHandler = () => {
+    setDropDownOpen(!dropDownOpen);
+  };
 
   return (
     <div className={navbar ? "navbaractive" : "navbar"} ref={divRef}>
@@ -365,7 +360,21 @@ const Navbar = () => {
           </Scrollbars>
         </div>
       </div>
-      {isLoggedIn ? logoutLink : loginLink}
+      {isLoggedIn ? (
+        <>
+          <div className="rightDropdown">
+            <Avatar onClick={dropdownHandler} onRequestClose={true} />
+            <ul className={dropDownOpen ? "dropdown active" : "dropdown"}>
+              <h1>Hello</h1>
+              <h2 onClick={() => logoutHandler()}>Logout</h2>
+            </ul>
+          </div>
+        </>
+      ) : (
+        <button className="login" onClick={() => loginHandler(provider)}>
+          LogIn
+        </button>
+      )}
     </div>
   );
 };

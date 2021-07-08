@@ -3,6 +3,7 @@
   max-height: 1100px;
   position: relative;
   overflow: hidden;
+  z-index: -10;
 }
 
 .heroWrapper {

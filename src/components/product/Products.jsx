@@ -96,6 +96,7 @@ const Products = () => {
       width: "80%",
       transform: "translate(-50%, -50%)",
       overflow: "hidden",
+      zIndex: "10",
     },
   };
 
@@ -173,7 +174,7 @@ const Products = () => {
               val.ProductName.toLowerCase().includes(search.toLowerCase())
             ) {
               return val;
-            } else if (val.ProductBrand === filter.filter) return val;
+            }
           })
           .slice(pagination.start, pagination.end)
           .map((product) => (
