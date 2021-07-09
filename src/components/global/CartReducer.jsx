@@ -8,7 +8,6 @@ const CartReducer = (state, action) => {
 
   switch (action.type) {
     case "ADD_to_CART":
-      console.log(action);
       const check = shoppingCart.find(
         (product) => product.ProductID === action.id
       );

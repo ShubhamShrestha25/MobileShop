@@ -310,7 +310,7 @@ textarea:valid ~ span {
   position: absolute;
   top: 55px;
   right: -32px;
-  background: #fff;
+  background: #d3d3d3;
   width: 100px;
   padding: 27px 20px;
   border-radius: 15px;
@@ -331,14 +331,15 @@ textarea:valid ~ span {
   top: -5px;
   width: 20px;
   height: 20px;
-  background: #fff;
+  background: #d3d3d3;
   transform: rotate(45deg);
 }
 
 .dropdown h1 {
   position: relative;
   padding-bottom: 15px;
-  font-size: 18px;
+  width: 100px;
+  font-size: 15px;
   cursor: default;
 }
 
@@ -358,6 +359,10 @@ textarea:valid ~ span {
 @media screen and (max-width: 1600px) {
   .sidemenu {
     width: 100%;
+  }
+
+  .cart-summary {
+    left: 40%;
   }
 }
 @media screen and (max-width: 700px) {

@@ -14,6 +14,7 @@ import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import { Scrollbars } from "react-custom-scrollbars";
 import KhaltiCheckout from "khalti-checkout-web";
 import config from "../khalti/KhaltiConfig";
+import firebase from "firebase/app";
 
 const safeDocument = typeof document !== "undefined" ? document : {};
 
@@ -73,6 +74,22 @@ const Navbar = () => {
     await auth.signOut();
     setIsLoggedIn(!isLoggedIn);
   };
+
+  const [userInfo, setUserInfo] = useState({
+    userName: "",
+    userPhoto: "",
+  });
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setUserInfo({
+          userName: user.displayName,
+          userPhoto: user.photoURL,
+        });
+      }
+    });
+  }, []);
 
   // Shopping Details \\
 
@@ -272,16 +289,28 @@ const Navbar = () => {
                     <span>Total Qty: </span>
                     <span>{totalQty}</span>
                   </div>
-                  <button
-                    className="btn"
-                    style={{ marginTop: 10 + "px" }}
-                    onClick={() => {
-                      toggleModal();
-                      openSlider();
-                    }}
-                  >
-                    Checkout
-                  </button>
+                  {isLoggedIn ? (
+                    <button
+                      className="btn"
+                      style={{ marginTop: 10 + "px" }}
+                      onClick={() => {
+                        toggleModal();
+                        openSlider();
+                      }}
+                    >
+                      Checkout
+                    </button>
+                  ) : (
+                    <button
+                      className="btn"
+                      style={{ marginTop: 10 + "px" }}
+                      onClick={() => {
+                        loginHandler(provider);
+                      }}
+                    >
+                      Checkout
+                    </button>
+                  )}
                   <div>
                     {details && (
                       <div className="details">
@@ -363,9 +392,9 @@ const Navbar = () => {
       {isLoggedIn ? (
         <>
           <div className="rightDropdown">
-            <Avatar onClick={dropdownHandler} onRequestClose={true} />
+            <Avatar onClick={dropdownHandler} src={userInfo.userPhoto} />
             <ul className={dropDownOpen ? "dropdown active" : "dropdown"}>
-              <h1>Hello</h1>
+              <h1>{userInfo.userName}</h1>
               <h2 onClick={() => logoutHandler()}>Logout</h2>
             </ul>
           </div>

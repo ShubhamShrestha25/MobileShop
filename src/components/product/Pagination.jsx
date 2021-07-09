@@ -4,10 +4,10 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 const Pagination = ({ showPerPage, onPaginationChange, total }) => {
   const [counter, setCounter] = useState(1);
-
   useEffect(() => {
     const value = showPerPage * counter;
     onPaginationChange(value - showPerPage, value);
+    //eslint-disable-next-line
   }, [counter]);
 
   const onButtonClick = (type) => {

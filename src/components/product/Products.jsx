@@ -106,8 +106,6 @@ const Products = () => {
     setSingleProduct(products.find((product) => product.ProductID === id));
   };
 
-  console.log(singleProduct);
-
   // search \\
 
   const [search, setSearch] = useState("");
