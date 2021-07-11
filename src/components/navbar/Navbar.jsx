@@ -15,6 +15,8 @@ import { Scrollbars } from "react-custom-scrollbars";
 import KhaltiCheckout from "khalti-checkout-web";
 import config from "../khalti/KhaltiConfig";
 import firebase from "firebase/app";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const safeDocument = typeof document !== "undefined" ? document : {};
 
@@ -64,14 +66,19 @@ const Navbar = () => {
 
   // login & logout \\
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const loginHandler = async () => {
     await auth.signInWithPopup(provider);
+    toast.success("Login Successful !!", {
+      autoClose: 3000,
+    });
     setIsLoggedIn(!isLoggedIn);
   };
 
   const logoutHandler = async () => {
     await auth.signOut();
+    toast.error("Logout Successful !!", {
+      autoClose: 3000,
+    });
     setIsLoggedIn(!isLoggedIn);
   };
 
@@ -367,9 +374,7 @@ const Navbar = () => {
                                 type="submit"
                                 disabled={disable}
                                 onSubmit={toggleModal}
-                                onClick={() =>
-                                  khalti.show({ amount: 100 * totalPrice })
-                                }
+                                onClick={() => khalti.show({ amount: 1000 })}
                               >
                                 {" "}
                                 Next{" "}

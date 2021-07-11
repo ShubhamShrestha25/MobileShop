@@ -17,37 +17,49 @@ const Footer = () => {
           eaque voluptate expedita.
         </p>
         <ul className="socials">
-          <a href="https://www.facebook.com//" alt="">
-            {" "}
+          <a
+            href="https://www.facebook.com//"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <li>
               <span>
                 <FacebookIcon />
               </span>
-            </li>{" "}
+            </li>
           </a>
-          <a href="https://www.instagram.com/" alt="">
-            {" "}
+          <a
+            href="https://www.instagram.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <li>
               <span>
                 <InstagramIcon />
               </span>
-            </li>{" "}
+            </li>
           </a>
-          <a href="https://twitter.com/" alt="">
-            {" "}
+          <a
+            href="https://twitter.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <li>
               <span>
                 <TwitterIcon />
               </span>
-            </li>{" "}
+            </li>
           </a>
-          <a href="https://www.youtube.com/" alt="">
-            {" "}
+          <a
+            href="https://www.youtube.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <li>
               <span>
                 <YouTubeIcon />
               </span>
-            </li>{" "}
+            </li>
           </a>
         </ul>
       </div>
