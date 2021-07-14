@@ -16,7 +16,6 @@ import KhaltiCheckout from "khalti-checkout-web";
 import config from "../khalti/KhaltiConfig";
 import firebase from "firebase/app";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const safeDocument = typeof document !== "undefined" ? document : {};
 
@@ -376,8 +375,7 @@ const Navbar = () => {
                                 onSubmit={toggleModal}
                                 onClick={() => khalti.show({ amount: 1000 })}
                               >
-                                {" "}
-                                Next{" "}
+                                Next
                               </button>
                             </div>
                           </form>

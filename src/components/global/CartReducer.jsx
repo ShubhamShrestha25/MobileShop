@@ -1,5 +1,4 @@
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 const CartReducer = (state, action) => {
   const { shoppingCart, totalPrice, totalQty } = state;
 

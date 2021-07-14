@@ -11,6 +11,7 @@
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
+    "dotenv": "^10.0.0",
     "firebase": "^8.6.5",
     "khalti-checkout-web": "^2.2.0",
     "react": "^17.0.2",
