@@ -81,6 +81,20 @@
   left: 110%;
 }
 
+@media screen and (max-width: 1600px) {
+  .wrapper {
+    width: 60%;
+  }
+  .single-service {
+    width: 95%;
+    margin-bottom: 30px;
+    top: 0px;
+  }
+  .wrapper h2 {
+    font-size: 30px;
+  }
+}
+
 @media (max-width: 600px) {
   .wrapper {
     width: 100%;

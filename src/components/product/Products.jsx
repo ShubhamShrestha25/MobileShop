@@ -171,8 +171,9 @@ const Products = () => {
             } else if (
               val.ProductName.toLowerCase().includes(search.toLowerCase())
             ) {
-              return val;
+              return true;
             }
+            return false;
           })
           .slice(pagination.start, pagination.end)
           .map((product) => (
