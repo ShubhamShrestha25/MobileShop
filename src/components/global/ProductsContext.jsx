@@ -25,6 +25,7 @@ export class ProductsContextProvider extends React.Component {
             ProductBrand: change.doc.data().ProductBrand,
             ProductRating: change.doc.data().ProductRating,
             OutOfStock: change.doc.data().OutOfStock,
+            ProductQuantity: change.doc.data().ProductQuantity,
           });
         }
         this.setState({

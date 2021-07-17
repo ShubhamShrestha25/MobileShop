@@ -255,6 +255,23 @@ const Products = () => {
                           <p>Rs {singleProduct.ProductPrice}</p>
                         </strong>
                       </div>
+                      <div>
+                        {singleProduct.ProductQuantity === 0 ? (
+                          <div className="product_quantity">
+                            {singleProduct.ProductQuantity}
+                            <p style={{ color: "red", fontWeight: "bold" }}>
+                              In Stock
+                            </p>
+                          </div>
+                        ) : (
+                          <div className="product_quantity">
+                            {singleProduct.ProductQuantity}
+                            <p style={{ color: "#00FF00", fontWeight: "bold" }}>
+                              In Stock
+                            </p>
+                          </div>
+                        )}
+                      </div>
                       {singleProduct.OutOfStock ? (
                         <button
                           className="outofstock_btn"
