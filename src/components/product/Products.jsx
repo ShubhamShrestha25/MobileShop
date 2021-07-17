@@ -7,6 +7,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import { CartContext } from "../global/CartContext";
 import Pagination from "./Pagination";
 import Rating from "@material-ui/lab/Rating";
+import { toast } from "react-toastify";
 
 const Products = () => {
   const { products } = useContext(ProductsContext);
@@ -195,18 +196,31 @@ const Products = () => {
                 />
               </div>
               <div className="product-price">Rs {product.ProductPrice}</div>
-              <button
-                className="btn"
-                onClick={() =>
-                  dispatch({
-                    type: "ADD_to_CART",
-                    id: product.ProductID,
-                    product,
-                  })
-                }
-              >
-                ADD TO CART
-              </button>
+              {product.OutOfStock ? (
+                <button
+                  className="outofstock_btn"
+                  onClick={() =>
+                    toast.error("Product Out Of Stock", {
+                      autoClose: 1000,
+                    })
+                  }
+                >
+                  OUT OF STOCK{" "}
+                </button>
+              ) : (
+                <button
+                  className="btn"
+                  onClick={() =>
+                    dispatch({
+                      type: "ADD_to_CART",
+                      id: product.ProductID,
+                      product,
+                    })
+                  }
+                >
+                  ADD TO CART
+                </button>
+              )}
             </div>
           ))}
         <div>
@@ -241,18 +255,31 @@ const Products = () => {
                           <p>Rs {singleProduct.ProductPrice}</p>
                         </strong>
                       </div>
-                      <button
-                        className="product_btn"
-                        onClick={() =>
-                          dispatch({
-                            type: "ADD_to_CART",
-                            id: singleProduct.ProductID,
-                            product: singleProduct,
-                          })
-                        }
-                      >
-                        Add to cart
-                      </button>
+                      {singleProduct.OutOfStock ? (
+                        <button
+                          className="outofstock_btn"
+                          onClick={() =>
+                            toast.error("Product Out Of Stock", {
+                              autoClose: 1000,
+                            })
+                          }
+                        >
+                          OUT OF STOCK
+                        </button>
+                      ) : (
+                        <button
+                          className="product_btn"
+                          onClick={() =>
+                            dispatch({
+                              type: "ADD_to_CART",
+                              id: singleProduct.ProductID,
+                              product: singleProduct,
+                            })
+                          }
+                        >
+                          Add to cart
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>

@@ -136,6 +136,7 @@
   color: white;
   width: 130px;
   height: 40px;
+  border: none;
   font-size: 14px;
   border-radius: 35px;
   cursor: pointer;
@@ -143,6 +144,24 @@
   float: right;
   overflow: hidden;
   top: 5rem;
+}
+
+.outofstock_btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(243, 12, 12);
+  color: white;
+  width: 130px;
+  border-color: brown;
+  height: 40px;
+  font-size: 14px;
+  border-radius: 35px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  float: right;
+  overflow: hidden;
 }
 
 .product_details_description p {

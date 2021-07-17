@@ -67,7 +67,7 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const loginHandler = async () => {
     await auth.signInWithPopup(provider);
-    toast.success("Login Successful !!", {
+    toast.success("Login Successful", {
       autoClose: 3000,
     });
     setIsLoggedIn(!isLoggedIn);
@@ -75,7 +75,7 @@ const Navbar = () => {
 
   const logoutHandler = async () => {
     await auth.signOut();
-    toast.error("Logout Successful !!", {
+    toast.error("Logout Successful", {
       autoClose: 3000,
     });
     setIsLoggedIn(!isLoggedIn);
