@@ -84,6 +84,7 @@ const Navbar = () => {
   const [userInfo, setUserInfo] = useState({
     userName: "",
     userPhoto: "",
+    uid: "",
   });
 
   useEffect(() => {
@@ -92,6 +93,7 @@ const Navbar = () => {
         setUserInfo({
           userName: user.displayName,
           userPhoto: user.photoURL,
+          uid: user.uid,
         });
       }
     });
@@ -398,6 +400,13 @@ const Navbar = () => {
             <Avatar onClick={dropdownHandler} src={userInfo.userPhoto} />
             <ul className={dropDownOpen ? "dropdown active" : "dropdown"}>
               <h1>{userInfo.userName}</h1>
+              <div>
+                {userInfo.uid === process.env.REACT_APP_ADMIN_UID ? (
+                  <h1>Add Products</h1>
+                ) : (
+                  ""
+                )}
+              </div>
               <h2 onClick={() => logoutHandler()}>Logout</h2>
             </ul>
           </div>

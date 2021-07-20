@@ -337,10 +337,12 @@ textarea:valid ~ span {
 
 .dropdown h1 {
   position: relative;
-  padding-bottom: 15px;
-  width: 100px;
+  padding-bottom: 10px;
+  padding-top: 5px;
+  width: 65px;
   font-size: 15px;
   cursor: default;
+  border-bottom: 2px solid black;
 }
 
 .dropdown h2 {
@@ -354,6 +356,16 @@ textarea:valid ~ span {
   position: relative;
   top: -3px;
   z-index: -10;
+}
+
+.showAddProducts {
+  visibility: visible;
+  opacity: 1;
+}
+
+.removeAddProducts {
+  visibility: hidden;
+  opacity: 0;
 }
 
 @media screen and (max-width: 1600px) {

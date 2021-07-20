@@ -16,10 +16,6 @@ let config = {
         hideProgressBar: true,
         progress: undefined,
       });
-      // let data = {
-      //   token: payload.token,
-      //   amount: payload.amount,
-      // };
 
       const { token, amount } = payload;
 

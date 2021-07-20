@@ -196,7 +196,7 @@ const Products = () => {
                 />
               </div>
               <div className="product-price">Rs {product.ProductPrice}</div>
-              {product.OutOfStock ? (
+              {product.ProductQuantity === 0 ? (
                 <button
                   className="outofstock_btn"
                   onClick={() =>
@@ -272,7 +272,7 @@ const Products = () => {
                           </div>
                         )}
                       </div>
-                      {singleProduct.OutOfStock ? (
+                      {singleProduct.ProductQuantity === 0 ? (
                         <button
                           className="outofstock_btn"
                           onClick={() =>

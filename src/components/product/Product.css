@@ -259,6 +259,7 @@
   }
 
   .product_quantity {
+    cursor: pointer;
     font-size: 0.5rem;
     gap: 0.6rem;
   }
