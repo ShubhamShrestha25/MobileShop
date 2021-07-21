@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 import axios from "axios";
+import { db } from "../Firebase";
 
 let config = {
   // replace this key with yours
@@ -16,6 +17,18 @@ let config = {
         hideProgressBar: true,
         progress: undefined,
       });
+      console.log(payload);
+
+      db.collection("orders")
+        .add({
+          orderID: payload.idx,
+          mobileNum: payload.mobile,
+          deliveryStatus: "pending",
+          orderAmount: payload.amount,
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
 
       const { token, amount } = payload;
 
@@ -35,7 +48,7 @@ let config = {
       // handle errors
     },
   },
-  paymentPreference: ["KHALTI"],
+  paymentPreference: ["KHALTI","MOBILE_BANKING"],
 };
 
 export default config;

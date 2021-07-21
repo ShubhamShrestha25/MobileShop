@@ -6,7 +6,7 @@ import Avatar from "@material-ui/core/Avatar";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { animateScroll as scroll, Link } from "react-scroll";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
-import { auth, db, provider } from "../Firebase";
+import { auth, db, provider, storage } from "../Firebase";
 import { CartContext } from "../global/CartContext";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
@@ -174,6 +174,85 @@ const Navbar = () => {
   const dropdownHandler = () => {
     setDropDownOpen(!dropDownOpen);
   };
+
+  // Add products\\
+  const [productName, setProductName] = useState("");
+  const [productPrice, setProductPrice] = useState(0);
+  const [productImg, setProductImg] = useState(null);
+  const [productDetails, setProductDetails] = useState("");
+  const [productBrand, setProductBrand] = useState("");
+  const [productQuantity, setProductQuantity] = useState(0);
+  const [productRating, setProductRating] = useState(0);
+  const [productsId, setProductsID] = useState(0);
+  const [error, setError] = useState("");
+  const [openAddProducts, setOpenAddProducts] = useState(false);
+
+  const types = ["image/png", "image/jpeg"]; // image types
+
+  const addProductPopUp = () => {
+    setOpenAddProducts(!openAddProducts);
+  };
+
+  const productImgHandler = (e) => {
+    let selectedFile = e.target.files[0];
+    if (selectedFile && types.includes(selectedFile.type)) {
+      setProductImg(selectedFile);
+      setError("");
+    } else {
+      setProductImg(null);
+      setError("Please select a valid image type (jpg or png)");
+    }
+  };
+
+  const addProduct = (e) => {
+    e.preventDefault();
+    const uploadTask = storage
+      .ref(`product-images/${productImg.name}`)
+      .put(productImg);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log(progress);
+      },
+      (err) => setError(err.message),
+      () => {
+        storage
+          .ref("product-images")
+          .child(productImg.name)
+          .getDownloadURL()
+          .then((url) => {
+            db.collection("Products")
+              .add({
+                ProductsID: Number(productsId),
+                ProductName: productName,
+                ProductPrice: Number(productPrice),
+                ProductBrand: productBrand,
+                ProductQuantity: Number(productQuantity),
+                ProductRating: Number(productRating),
+                ProductDetails: productDetails,
+                ProductImg: url,
+              })
+              .then(() => {
+                setProductsID(0);
+                setProductName("");
+                setProductPrice(0);
+                setProductBrand("");
+                setProductQuantity(0);
+                setProductRating(0);
+                setProductDetails("");
+                setProductImg("");
+                setError("");
+                document.getElementById("file").value = "";
+              })
+              .catch((err) => setError(err.message));
+          });
+      }
+    );
+  };
+
+
 
   return (
     <div className={navbar ? "navbaractive" : "navbar"} ref={divRef}>
@@ -402,7 +481,123 @@ const Navbar = () => {
               <h1>{userInfo.userName}</h1>
               <div>
                 {userInfo.uid === process.env.REACT_APP_ADMIN_UID ? (
-                  <h1>Add Products</h1>
+                  <div>
+                    <h1
+                      onClick={() => {
+                        addProductPopUp();
+                      }}
+                    >
+                      Add Products
+                    </h1>
+                    {openAddProducts && (
+                      <div className="add-products-details">
+                        <div
+                          onClick={addProductPopUp}
+                          className="add-products-overlay"
+                        ></div>
+                        <div className="add-products-details-content">
+                          <form
+                            autoComplete="off"
+                            className="form-group"
+                            onSubmit={addProduct}
+                          >
+                            <label htmlFor="product-id">Product ID</label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              required
+                              onChange={(e) => setProductsID(e.target.value)}
+                              value={productsId}
+                            />
+                            <br />
+                            <label htmlFor="product-name">Product Name</label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              required
+                              onChange={(e) => setProductName(e.target.value)}
+                              value={productName}
+                            />
+                            <br />
+                            <label htmlFor="product-price">Product Price</label>
+                            <input
+                              type="number"
+                              className="form-control"
+                              required
+                              onChange={(e) => setProductPrice(e.target.value)}
+                              value={productPrice}
+                            />
+                            <br />
+                            <label htmlFor="product-brand">Product Brand</label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              required
+                              onChange={(e) => setProductBrand(e.target.value)}
+                              value={productBrand}
+                            />
+                            <br />
+                            <label htmlFor="product-quantity">
+                              Product Quantity
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              required
+                              onChange={(e) =>
+                                setProductQuantity(e.target.value)
+                              }
+                              value={productQuantity}
+                            />
+                            <br />
+                            <label htmlFor="product-rating">
+                              Product Rating
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              required
+                              onChange={(e) => setProductRating(e.target.value)}
+                              value={productRating}
+                            />
+                            <br />
+
+                            <label htmlFor="product-details">
+                              Product details
+                            </label>
+                            <textarea
+                              className="form-control"
+                              required
+                              onChange={(e) =>
+                                setProductDetails(e.target.value)
+                              }
+                              value={productDetails}
+                            />
+                            <br />
+                            <label htmlFor="product-img">Product Image</label>
+                            <input
+                              type="file"
+                              className="form-control"
+                              id="file"
+                              required
+                              onChange={productImgHandler}
+                            />
+                            <br />
+                            <button type="submit" className="add-btn">
+                              ADD
+                            </button>
+                          </form>
+                          {error && <span className="error-msg">{error}</span>}
+                          <button
+                            className="closebtn"
+                            onClick={addProductPopUp}
+                          >
+                            <CloseRoundedIcon />
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 ) : (
                   ""
                 )}

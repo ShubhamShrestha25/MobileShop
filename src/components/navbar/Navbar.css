@@ -317,6 +317,7 @@ textarea:valid ~ span {
   transition: 0.5s;
   visibility: hidden;
   opacity: 0;
+  z-index: -10;
 }
 
 .dropdown.active {
@@ -350,6 +351,7 @@ textarea:valid ~ span {
   font-size: 18px;
   top: 10px;
   cursor: pointer;
+  z-index: -10;
 }
 
 .rightDropdown {
@@ -366,6 +368,56 @@ textarea:valid ~ span {
 .removeAddProducts {
   visibility: hidden;
   opacity: 0;
+}
+
+/* add products */
+.add-products-details,
+.add-products-overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+}
+
+.add-products-overlay {
+  background: rgba(49, 49, 49, 0.8);
+}
+
+.add-products-details-content {
+  position: absolute;
+  top: 53%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #f1f1f1;
+  padding: 25px 28px;
+  border-radius: 15px;
+  height: 85%;
+  width: 50%;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 50px;
+  font-size: 18px;
+}
+
+.form-control {
+  font-size: 18px;
+}
+
+.add-btn {
+  width: 80px;
+  height: 40px;
+  border-radius: 2rem;
+  border: none;
+  outline: none;
+  color: white;
+  background-color: rgb(0, 0, 0);
 }
 
 @media screen and (max-width: 1600px) {
@@ -466,8 +518,7 @@ textarea:valid ~ span {
   .cart-summary {
     left: 10%;
   }
-  .login,
-  .logout {
+  .login {
     padding: 10px 15px;
     bottom: 0.4rem;
     margin-right: 0.4rem;
@@ -481,5 +532,16 @@ textarea:valid ~ span {
   .rightDropdown {
     right: 5px;
     top: -5px;
+  }
+
+  .add-products-details,
+  .add-products-overlay {
+    width: 100%;
+    height: 100%;
+  }
+
+  .add-products-details-content {
+    height: 90%;
+    width: 95%;
   }
 }
