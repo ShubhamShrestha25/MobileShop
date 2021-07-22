@@ -16,8 +16,12 @@ import KhaltiCheckout from "khalti-checkout-web";
 import config from "../khalti/KhaltiConfig";
 import firebase from "firebase/app";
 import { toast } from "react-toastify";
+import IdleTimer from "react-idle-timer";
 
 const safeDocument = typeof document !== "undefined" ? document : {};
+const loginFromLocalStorage = JSON.parse(
+  localStorage.getItem("login") || false
+);
 
 const Navbar = () => {
   const { shoppingCart, dispatch, totalPrice, totalQty } =
@@ -36,7 +40,6 @@ const Navbar = () => {
       setNavbar(false);
     }
   };
-
   const multipleFunction = () => {
     setclicked(!clicked);
     html.style.overflowY = "scroll";
@@ -64,7 +67,8 @@ const Navbar = () => {
   };
 
   // login & logout \\
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(loginFromLocalStorage);
   const loginHandler = async () => {
     await auth.signInWithPopup(provider);
     toast.success("Login Successful", {
@@ -79,6 +83,17 @@ const Navbar = () => {
       autoClose: 3000,
     });
     setIsLoggedIn(!isLoggedIn);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("login", JSON.stringify(isLoggedIn));
+  }, [isLoggedIn]);
+
+  const idleTimerRef = useRef(null);
+
+  const onIdle = async () => {
+    await auth.signOut();
+    setIsLoggedIn(false);
   };
 
   const [userInfo, setUserInfo] = useState({
@@ -185,12 +200,12 @@ const Navbar = () => {
   const [productRating, setProductRating] = useState(0);
   const [productsId, setProductsID] = useState(0);
   const [error, setError] = useState("");
-  const [openAddProducts, setOpenAddProducts] = useState(false);
+  const [openDropDownModal, setOpenDropDownModal] = useState(false);
 
   const types = ["image/png", "image/jpeg"]; // image types
 
   const addProductPopUp = () => {
-    setOpenAddProducts(!openAddProducts);
+    setOpenDropDownModal(!openDropDownModal);
   };
 
   const productImgHandler = (e) => {
@@ -202,6 +217,12 @@ const Navbar = () => {
       setProductImg(null);
       setError("Please select a valid image type (jpg or png)");
     }
+  };
+
+  // my orders \\
+  const [openOrderDropDownModal, setOrderOpenDropDownModal] = useState(false);
+  const orderPopUp = () => {
+    setOrderOpenDropDownModal(!openOrderDropDownModal);
   };
 
   const addProduct = (e) => {
@@ -252,7 +273,29 @@ const Navbar = () => {
     );
   };
 
+  // getting data from firebase \\
 
+  const [myOrder, setMyOrder] = useState([]);
+
+  const orderData = firebase.firestore().collection("orders");
+
+  const getOrders = () => {
+    orderData.onSnapshot((querySnapshot) => {
+      const items = [];
+      querySnapshot.forEach((doc) => {
+        items.push(doc.data());
+      });
+      setMyOrder(items);
+    });
+  };
+
+  const deleteOrder = () => {
+    orderData.doc().delete();
+  };
+
+  useEffect(() => {
+    getOrders();
+  }, []);
 
   return (
     <div className={navbar ? "navbaractive" : "navbar"} ref={divRef}>
@@ -480,6 +523,57 @@ const Navbar = () => {
             <ul className={dropDownOpen ? "dropdown active" : "dropdown"}>
               <h1>{userInfo.userName}</h1>
               <div>
+                <h1 onClick={orderPopUp}>My Orders</h1>
+                {openOrderDropDownModal && (
+                  <div className="add-products-details">
+                    <div
+                      onClick={orderPopUp}
+                      className="add-products-overlay"
+                    ></div>
+                    <div className="orders-details-content">
+                      <div className="order-header">
+                        <div className="order-id">Order ID</div>
+                        <div className="order-number">Order Number</div>
+                        <div className="order-status">Status</div>
+                        <div className="order-amount">Amount</div>
+                      </div>
+                      {myOrder.map((order) => (
+                        <div key={order.orderID}>
+                          <div className="order-details">
+                            <div className="order-id">{order.orderID}</div>
+                            <div className="order-number">
+                              {order.mobileNum}
+                            </div>
+                            <div className="order-status">
+                              {order.deliveryStatus === "pending" ? (
+                                <p style={{ color: "red" }}>
+                                  {order.deliveryStatus}
+                                </p>
+                              ) : (
+                                <p style={{ color: "green" }}>
+                                  {order.deliveryStatus}
+                                </p>
+                              )}
+                            </div>
+                            <div className="order-amount">
+                              {order.orderAmount}
+                            </div>
+                            <DeleteIcon
+                              onClick={deleteOrder}
+                              style={{ color: "red" }}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                      {error && <span className="error-msg">{error}</span>}
+                      <button className="closebtn" onClick={orderPopUp}>
+                        <CloseRoundedIcon />
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div>
                 {userInfo.uid === process.env.REACT_APP_ADMIN_UID ? (
                   <div>
                     <h1
@@ -489,7 +583,7 @@ const Navbar = () => {
                     >
                       Add Products
                     </h1>
-                    {openAddProducts && (
+                    {openDropDownModal && (
                       <div className="add-products-details">
                         <div
                           onClick={addProductPopUp}
@@ -611,6 +705,11 @@ const Navbar = () => {
           LogIn
         </button>
       )}
+      <IdleTimer
+        ref={idleTimerRef}
+        timeout={12 * 60 * 60 * 1000}
+        onIdle={onIdle}
+      />
     </div>
   );
 };

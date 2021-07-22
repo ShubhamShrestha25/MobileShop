@@ -420,6 +420,65 @@ textarea:valid ~ span {
   background-color: rgb(0, 0, 0);
 }
 
+/* my orders */
+
+.orders-details-content {
+  position: absolute;
+  top: 53%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #f1f1f1;
+  padding: 100px 20px;
+  border-radius: 15px;
+  height: 85%;
+  width: 50%;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-weight: 200;
+  padding-right: 28px;
+  padding-bottom: 10px;
+  cursor: default;
+}
+.order-details {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 5px;
+  cursor: default;
+}
+
+.order-id {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 30%;
+}
+
+.order-number {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 30%;
+}
+
+.order-status {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 20%;
+}
+
+.order-amount {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 20%;
+}
+
 @media screen and (max-width: 1600px) {
   .sidemenu {
     width: 100%;
@@ -427,6 +486,37 @@ textarea:valid ~ span {
 
   .cart-summary {
     left: 40%;
+  }
+  .add-products-details-content,
+  .orders-details-content {
+    height: 90%;
+    width: 95%;
+  }
+
+  .order-header {
+    font-size: 15px;
+    padding-right: 15px;
+  }
+
+  .order-details {
+    font-size: 15px;
+    padding-bottom: 10px;
+  }
+
+  .order-id {
+    min-width: 30%;
+  }
+
+  .order-number {
+    min-width: 20%;
+  }
+
+  .order-status {
+    min-width: 10%;
+  }
+
+  .order-amount {
+    min-width: 10%;
   }
 }
 @media screen and (max-width: 700px) {
@@ -540,8 +630,37 @@ textarea:valid ~ span {
     height: 100%;
   }
 
-  .add-products-details-content {
+  .add-products-details-content,
+  .orders-details-content {
     height: 90%;
     width: 95%;
+    padding: 80px 20px;
+  }
+
+  .order-header {
+    font-size: 11px;
+    padding-right: 20px;
+    justify-content: space-between;
+  }
+
+  .order-details {
+    font-size: 11px;
+    padding-bottom: 10px;
+  }
+
+  .order-id {
+    min-width: 43%;
+  }
+
+  .order-number {
+    min-width: 28%;
+  }
+
+  .order-status {
+    min-width: 15%;
+  }
+
+  .order-amount {
+    min-width: 15%;
   }
 }

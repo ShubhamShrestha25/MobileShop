@@ -24,7 +24,7 @@ let config = {
           orderID: payload.idx,
           mobileNum: payload.mobile,
           deliveryStatus: "pending",
-          orderAmount: payload.amount,
+          orderAmount: payload.amount/100,
         })
         .catch((error) => {
           alert(error.message);
