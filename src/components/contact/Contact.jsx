@@ -41,10 +41,8 @@ const Contact = () => {
       <div className="content">
         <h2>Contact Us 📞</h2>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus hic
-          illum cumque ad unde reprehenderit neque alias quas. Obcaecati,
-          voluptas omnis magni fugit dolore pariatur aperiam quod nihil facere
-          ratione?
+          Hello guys feel free to contact us through our contact form or our
+          mobile number and email to get in touch with us for any queries or informations
         </p>
       </div>
       <div className="container">

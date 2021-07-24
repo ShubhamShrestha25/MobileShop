@@ -11,10 +11,10 @@ const Footer = () => {
       <div className="footerContent">
         <h3>MoBify</h3>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique
-          nulla, nesciunt dolor ipsum velit minus temporibus, maiores
-          accusantium animi, voluptas ab unde. Amet cum nisi sapiente inventore
-          eaque voluptate expedita.
+          Mobify is a website for purchasing your favourite smartphone and
+          mobile devices through our secured payment services and fast delivery
+          to satisfy our customers for better experience at purchasing your
+          smartphone through our website
         </p>
         <ul className="socials">
           <a

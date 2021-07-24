@@ -276,8 +276,19 @@ const Navbar = () => {
   // getting data from firebase \\
 
   const [myOrder, setMyOrder] = useState([]);
-
+  const [admins, setAdmins] = useState([]);
   const orderData = firebase.firestore().collection("orders");
+  const adminData = firebase.firestore().collection("admin");
+
+  const getAdmin = () => {
+    adminData.onSnapshot((querySnapshot) => {
+      const texts = [];
+      querySnapshot.forEach((doc) => {
+        texts.push(doc.data());
+      });
+      setAdmins(texts);
+    });
+  };
 
   const getOrders = () => {
     orderData.onSnapshot((querySnapshot) => {
@@ -295,7 +306,8 @@ const Navbar = () => {
 
   useEffect(() => {
     getOrders();
-  }, []);
+    getAdmin();
+  });
 
   return (
     <div className={navbar ? "navbaractive" : "navbar"} ref={divRef}>
@@ -539,30 +551,34 @@ const Navbar = () => {
                       </div>
                       {myOrder.map((order) => (
                         <div key={order.orderID}>
-                          <div className="order-details">
-                            <div className="order-id">{order.orderID}</div>
-                            <div className="order-number">
-                              {order.mobileNum}
+                          {userInfo.uid === order.userIDs ? (
+                            <div className="order-details">
+                              <div className="order-id">{order.orderID}</div>
+                              <div className="order-number">
+                                {order.mobileNum}
+                              </div>
+                              <div className="order-status">
+                                {order.deliveryStatus === "pending" ? (
+                                  <p style={{ color: "red" }}>
+                                    {order.deliveryStatus}
+                                  </p>
+                                ) : (
+                                  <p style={{ color: "green" }}>
+                                    {order.deliveryStatus}
+                                  </p>
+                                )}
+                              </div>
+                              <div className="order-amount">
+                                {order.orderAmount}
+                              </div>
+                              <DeleteIcon
+                                onClick={deleteOrder}
+                                style={{ color: "red" }}
+                              />
                             </div>
-                            <div className="order-status">
-                              {order.deliveryStatus === "pending" ? (
-                                <p style={{ color: "red" }}>
-                                  {order.deliveryStatus}
-                                </p>
-                              ) : (
-                                <p style={{ color: "green" }}>
-                                  {order.deliveryStatus}
-                                </p>
-                              )}
-                            </div>
-                            <div className="order-amount">
-                              {order.orderAmount}
-                            </div>
-                            <DeleteIcon
-                              onClick={deleteOrder}
-                              style={{ color: "red" }}
-                            />
-                          </div>
+                          ) : (
+                            ""
+                          )}
                         </div>
                       ))}
                       {error && <span className="error-msg">{error}</span>}
@@ -574,127 +590,151 @@ const Navbar = () => {
                 )}
               </div>
               <div>
-                {userInfo.uid === process.env.REACT_APP_ADMIN_UID ? (
-                  <div>
-                    <h1
-                      onClick={() => {
-                        addProductPopUp();
-                      }}
-                    >
-                      Add Products
-                    </h1>
-                    {openDropDownModal && (
-                      <div className="add-products-details">
-                        <div
-                          onClick={addProductPopUp}
-                          className="add-products-overlay"
-                        ></div>
-                        <div className="add-products-details-content">
-                          <form
-                            autoComplete="off"
-                            className="form-group"
-                            onSubmit={addProduct}
-                          >
-                            <label htmlFor="product-id">Product ID</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              required
-                              onChange={(e) => setProductsID(e.target.value)}
-                              value={productsId}
-                            />
-                            <br />
-                            <label htmlFor="product-name">Product Name</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              required
-                              onChange={(e) => setProductName(e.target.value)}
-                              value={productName}
-                            />
-                            <br />
-                            <label htmlFor="product-price">Product Price</label>
-                            <input
-                              type="number"
-                              className="form-control"
-                              required
-                              onChange={(e) => setProductPrice(e.target.value)}
-                              value={productPrice}
-                            />
-                            <br />
-                            <label htmlFor="product-brand">Product Brand</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              required
-                              onChange={(e) => setProductBrand(e.target.value)}
-                              value={productBrand}
-                            />
-                            <br />
-                            <label htmlFor="product-quantity">
-                              Product Quantity
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              required
-                              onChange={(e) =>
-                                setProductQuantity(e.target.value)
-                              }
-                              value={productQuantity}
-                            />
-                            <br />
-                            <label htmlFor="product-rating">
-                              Product Rating
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              required
-                              onChange={(e) => setProductRating(e.target.value)}
-                              value={productRating}
-                            />
-                            <br />
+                {admins.map((admin) => (
+                  <div key={admin.AdminID}>
+                    {userInfo.uid === admin.AdminID ? (
+                      <div>
+                        <h1
+                          onClick={() => {
+                            addProductPopUp();
+                          }}
+                        >
+                          Add Products
+                        </h1>
+                        {openDropDownModal && (
+                          <div className="add-products-details">
+                            <div
+                              onClick={addProductPopUp}
+                              className="add-products-overlay"
+                            ></div>
+                            <div className="add-products-details-content">
+                              <form
+                                autoComplete="off"
+                                className="form-group"
+                                onSubmit={addProduct}
+                              >
+                                <label htmlFor="product-id">Product ID</label>
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  required
+                                  onChange={(e) =>
+                                    setProductsID(e.target.value)
+                                  }
+                                  value={productsId}
+                                />
+                                <br />
+                                <label htmlFor="product-name">
+                                  Product Name
+                                </label>
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  required
+                                  onChange={(e) =>
+                                    setProductName(e.target.value)
+                                  }
+                                  value={productName}
+                                />
+                                <br />
+                                <label htmlFor="product-price">
+                                  Product Price
+                                </label>
+                                <input
+                                  type="number"
+                                  className="form-control"
+                                  required
+                                  onChange={(e) =>
+                                    setProductPrice(e.target.value)
+                                  }
+                                  value={productPrice}
+                                />
+                                <br />
+                                <label htmlFor="product-brand">
+                                  Product Brand
+                                </label>
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  required
+                                  onChange={(e) =>
+                                    setProductBrand(e.target.value)
+                                  }
+                                  value={productBrand}
+                                />
+                                <br />
+                                <label htmlFor="product-quantity">
+                                  Product Quantity
+                                </label>
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  required
+                                  onChange={(e) =>
+                                    setProductQuantity(e.target.value)
+                                  }
+                                  value={productQuantity}
+                                />
+                                <br />
+                                <label htmlFor="product-rating">
+                                  Product Rating
+                                </label>
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  required
+                                  onChange={(e) =>
+                                    setProductRating(e.target.value)
+                                  }
+                                  value={productRating}
+                                />
+                                <br />
 
-                            <label htmlFor="product-details">
-                              Product details
-                            </label>
-                            <textarea
-                              className="form-control"
-                              required
-                              onChange={(e) =>
-                                setProductDetails(e.target.value)
-                              }
-                              value={productDetails}
-                            />
-                            <br />
-                            <label htmlFor="product-img">Product Image</label>
-                            <input
-                              type="file"
-                              className="form-control"
-                              id="file"
-                              required
-                              onChange={productImgHandler}
-                            />
-                            <br />
-                            <button type="submit" className="add-btn">
-                              ADD
-                            </button>
-                          </form>
-                          {error && <span className="error-msg">{error}</span>}
-                          <button
-                            className="closebtn"
-                            onClick={addProductPopUp}
-                          >
-                            <CloseRoundedIcon />
-                          </button>
-                        </div>
+                                <label htmlFor="product-details">
+                                  Product details
+                                </label>
+                                <textarea
+                                  className="form-control"
+                                  required
+                                  onChange={(e) =>
+                                    setProductDetails(e.target.value)
+                                  }
+                                  value={productDetails}
+                                />
+                                <br />
+                                <label htmlFor="product-img">
+                                  Product Image
+                                </label>
+                                <input
+                                  type="file"
+                                  className="form-control"
+                                  id="file"
+                                  required
+                                  onChange={productImgHandler}
+                                />
+                                <br />
+                                <button type="submit" className="add-btn">
+                                  ADD
+                                </button>
+                              </form>
+                              {error && (
+                                <span className="error-msg">{error}</span>
+                              )}
+                              <button
+                                className="closebtn"
+                                onClick={addProductPopUp}
+                              >
+                                <CloseRoundedIcon />
+                              </button>
+                            </div>
+                          </div>
+                        )}
                       </div>
+                    ) : (
+                      ""
                     )}
                   </div>
-                ) : (
-                  ""
-                )}
+                ))}
               </div>
               <h2 onClick={() => logoutHandler()}>Logout</h2>
             </ul>
@@ -705,13 +745,8 @@ const Navbar = () => {
           LogIn
         </button>
       )}
-      <IdleTimer
-        ref={idleTimerRef}
-        timeout={12 * 60 * 60 * 1000}
-        onIdle={onIdle}
-      />
+      <IdleTimer ref={idleTimerRef} timeout={15 * 60 * 1000} onIdle={onIdle} />
     </div>
   );
 };
-
 export default Navbar;

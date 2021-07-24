@@ -19,10 +19,9 @@ const Services = () => {
           <span></span>
           <h3>Fast Delivery</h3>
           <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-            Dignissimos, dolore optio. Laboriosam veritatis tempora alias id
-            voluptates, expedita amet dignissimos voluptatum sequi assumenda
-            dolor vero quibusdam recusandae tenetur obcaecati blanditiis?
+            We provide fast delivery of our products within 1-2 working day with
+            return policy and full cashback if product is found to be damage or
+            faulty
           </p>
         </div>
         <div className="single-service">
@@ -34,10 +33,9 @@ const Services = () => {
           <span></span>
           <h3>Secured Payment</h3>
           <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-            Dignissimos, dolore optio. Laboriosam veritatis tempora alias id
-            voluptates, expedita amet dignissimos voluptatum sequi assumenda
-            dolor vero quibusdam recusandae tenetur obcaecati blanditiis?
+            We provide a secured payment gateway to purchase your favourite
+            mobile devices and smartphones through our website using Khalti
+            payment for fast and secured transactions
           </p>
         </div>
         <div className="single-service">
@@ -49,10 +47,9 @@ const Services = () => {
           <span></span>
           <h3>24/7 Customer Service</h3>
           <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-            Dignissimos, dolore optio. Laboriosam veritatis tempora alias id
-            voluptates, expedita amet dignissimos voluptatum sequi assumenda
-            dolor vero quibusdam recusandae tenetur obcaecati blanditiis?
+            We provide 24/7 customer service to our lovely customers so feel
+            free to contact us any time and we will be back with you as soon as
+            possible
           </p>
         </div>
       </div>

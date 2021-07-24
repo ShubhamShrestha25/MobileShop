@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 import axios from "axios";
 import { db } from "../Firebase";
+import firebase from "firebase/app";
 
 let config = {
   // replace this key with yours
@@ -19,16 +20,22 @@ let config = {
       });
       console.log(payload);
 
-      db.collection("orders")
-        .add({
-          orderID: payload.idx,
-          mobileNum: payload.mobile,
-          deliveryStatus: "pending",
-          orderAmount: payload.amount/100,
-        })
-        .catch((error) => {
-          alert(error.message);
-        });
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          const uid = user.uid;
+          db.collection("orders")
+            .add({
+              orderID: payload.idx,
+              mobileNum: payload.mobile,
+              deliveryStatus: "pending",
+              orderAmount: payload.amount / 100,
+              userIDs: uid,
+            })
+            .catch((error) => {
+              alert(error.message);
+            });
+        }
+      });
 
       const { token, amount } = payload;
 
@@ -48,7 +55,7 @@ let config = {
       // handle errors
     },
   },
-  paymentPreference: ["KHALTI","MOBILE_BANKING"],
+  paymentPreference: ["KHALTI", "MOBILE_BANKING"],
 };
 
 export default config;
