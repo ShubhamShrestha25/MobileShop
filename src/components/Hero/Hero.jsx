@@ -2,10 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import "./Hero.css";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import { SliderData } from "./SliderData";
 
-const Hero = ({ slides }) => {
+const Hero = () => {
   const [current, setCurrent] = useState(0);
-  const length = slides.length;
+  const length = SliderData.length;
   const timeout = useRef(null);
 
   useEffect(() => {
@@ -31,7 +32,7 @@ const Hero = ({ slides }) => {
   return (
     <div className="heroSection" id="home">
       <div className="heroWrapper">
-        {slides.map((slide, index) => {
+        {SliderData.map((slide, index) => {
           return (
             <div className="heroSlide" key={index}>
               {index === current && (

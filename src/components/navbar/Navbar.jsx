@@ -12,8 +12,6 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import { Scrollbars } from "react-custom-scrollbars";
-import KhaltiCheckout from "khalti-checkout-web";
-import config from "../khalti/KhaltiConfig";
 import firebase from "firebase/app";
 import { toast } from "react-toastify";
 import IdleTimer from "react-idle-timer";
@@ -23,7 +21,7 @@ const loginFromLocalStorage = JSON.parse(
   localStorage.getItem("login") || false
 );
 
-const Navbar = () => {
+const Navbar = ({ handleNextButton }) => {
   const { shoppingCart, dispatch, totalPrice, totalQty } =
     useContext(CartContext);
 
@@ -35,7 +33,6 @@ const Navbar = () => {
   const changeBackground = () => {
     if (window.scrollY > 100) {
       setNavbar(true);
-      divRef.current.className = "navbaractive";
     } else {
       setNavbar(false);
     }
@@ -45,7 +42,9 @@ const Navbar = () => {
     html.style.overflowY = "scroll";
   };
 
-  window.addEventListener("scroll", changeBackground);
+  useEffect(() => {
+    window.addEventListener("scroll", changeBackground);
+  }, []);
 
   const [clicked, setclicked] = useState(false);
   const clickHandler = () => {
@@ -176,13 +175,6 @@ const Navbar = () => {
       location: "",
     });
   };
-
-  //khalti\\
-  const [khalti, setKhalti] = useState();
-  useEffect(() => {
-    let checkout = new KhaltiCheckout(config);
-    setKhalti(checkout);
-  }, []);
 
   // dropdown menu  \\
   const [dropDownOpen, setDropDownOpen] = useState(false);
@@ -509,7 +501,7 @@ const Navbar = () => {
                                 type="submit"
                                 disabled={disable}
                                 onSubmit={toggleModal}
-                                onClick={() => khalti.show({ amount: 1000 })}
+                                onClick={() => handleNextButton({ totalPrice })}
                               >
                                 Next
                               </button>
