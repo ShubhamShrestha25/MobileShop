@@ -13,7 +13,6 @@ import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import { Scrollbars } from "react-custom-scrollbars";
 import firebase from "firebase/app";
-import { toast } from "react-toastify";
 import IdleTimer from "react-idle-timer";
 
 const safeDocument = typeof document !== "undefined" ? document : {};
@@ -70,17 +69,11 @@ const Navbar = ({ handleNextButton }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(loginFromLocalStorage);
   const loginHandler = async () => {
     await auth.signInWithPopup(provider);
-    toast.success("Login Successful", {
-      autoClose: 3000,
-    });
     setIsLoggedIn(!isLoggedIn);
   };
 
   const logoutHandler = async () => {
     await auth.signOut();
-    toast.error("Logout Successful", {
-      autoClose: 3000,
-    });
     setIsLoggedIn(!isLoggedIn);
   };
 
@@ -290,10 +283,6 @@ const Navbar = ({ handleNextButton }) => {
       });
       setMyOrder(items);
     });
-  };
-
-  const deleteOrder = () => {
-    orderData.doc().delete();
   };
 
   useEffect(() => {
@@ -528,58 +517,56 @@ const Navbar = ({ handleNextButton }) => {
               <h1>{userInfo.userName}</h1>
               <div>
                 <h1 onClick={orderPopUp}>My Orders</h1>
-                {openOrderDropDownModal && (
-                  <div className="add-products-details">
-                    <div
-                      onClick={orderPopUp}
-                      className="add-products-overlay"
-                    ></div>
-                    <div className="orders-details-content">
-                      <div className="order-header">
-                        <div className="order-id">Order ID</div>
-                        <div className="order-number">Order Number</div>
-                        <div className="order-status">Status</div>
-                        <div className="order-amount">Amount</div>
-                      </div>
-                      {myOrder.map((order) => (
-                        <div key={order.orderID}>
-                          {userInfo.uid === order.userIDs ? (
-                            <div className="order-details">
-                              <div className="order-id">{order.orderID}</div>
-                              <div className="order-number">
-                                {order.mobileNum}
-                              </div>
-                              <div className="order-status">
-                                {order.deliveryStatus === "pending" ? (
-                                  <p style={{ color: "red" }}>
-                                    {order.deliveryStatus}
-                                  </p>
-                                ) : (
-                                  <p style={{ color: "green" }}>
-                                    {order.deliveryStatus}
-                                  </p>
-                                )}
-                              </div>
-                              <div className="order-amount">
-                                {order.orderAmount}
-                              </div>
-                              <DeleteIcon
-                                onClick={deleteOrder}
-                                style={{ color: "red" }}
-                              />
-                            </div>
-                          ) : (
-                            ""
-                          )}
+                <Scrollbars style={{ width: "100%", height: "100%" }}>
+                  {openOrderDropDownModal && (
+                    <div className="add-products-details">
+                      <div
+                        onClick={orderPopUp}
+                        className="add-products-overlay"
+                      ></div>
+                      <div className="orders-details-content">
+                        <div className="order-header">
+                          <div className="order-id">Order ID</div>
+                          <div className="order-number">Order Number</div>
+                          <div className="order-status">Status</div>
+                          <div className="order-amount">Amount</div>
                         </div>
-                      ))}
-                      {error && <span className="error-msg">{error}</span>}
-                      <button className="closebtn" onClick={orderPopUp}>
-                        <CloseRoundedIcon />
-                      </button>
+                        {myOrder.map((order) => (
+                          <div key={order.orderID}>
+                            {userInfo.uid === order.userIDs ? (
+                              <div className="order-details">
+                                <div className="order-id">{order.orderID}</div>
+                                <div className="order-number">
+                                  {order.mobileNum}
+                                </div>
+                                <div className="order-status">
+                                  {order.deliveryStatus === "pending" ? (
+                                    <p style={{ color: "red" }}>
+                                      {order.deliveryStatus}
+                                    </p>
+                                  ) : (
+                                    <p style={{ color: "green" }}>
+                                      {order.deliveryStatus}
+                                    </p>
+                                  )}
+                                </div>
+                                <div className="order-amount">
+                                  {order.orderAmount}
+                                </div>
+                              </div>
+                            ) : (
+                              ""
+                            )}
+                          </div>
+                        ))}
+                        {error && <span className="error-msg">{error}</span>}
+                        <button className="closebtn" onClick={orderPopUp}>
+                          <CloseRoundedIcon />
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
+                </Scrollbars>
               </div>
               <div>
                 {admins.map((admin) => (

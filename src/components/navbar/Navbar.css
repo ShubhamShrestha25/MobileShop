@@ -431,6 +431,9 @@ textarea:valid ~ span {
   padding: 100px 20px;
   border-radius: 15px;
   height: 85%;
+  font-size: 22px;
+  overflow: hidden;
+  overflow-y: scroll;
   width: 50%;
 }
 

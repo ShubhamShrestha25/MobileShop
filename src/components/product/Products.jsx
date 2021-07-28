@@ -7,7 +7,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import { CartContext } from "../global/CartContext";
 import Pagination from "./Pagination";
 import Rating from "@material-ui/lab/Rating";
-import { toast } from "react-toastify";
+
 
 const Products = () => {
   const { products } = useContext(ProductsContext);
@@ -199,11 +199,6 @@ const Products = () => {
               {product.ProductQuantity === 0 ? (
                 <button
                   className="outofstock_btn"
-                  onClick={() =>
-                    toast.error("Product Out Of Stock", {
-                      autoClose: 1000,
-                    })
-                  }
                 >
                   OUT OF STOCK{" "}
                 </button>
@@ -275,11 +270,6 @@ const Products = () => {
                       {singleProduct.ProductQuantity === 0 ? (
                         <button
                           className="outofstock_btn"
-                          onClick={() =>
-                            toast.error("Product Out Of Stock", {
-                              autoClose: 1000,
-                            })
-                          }
                         >
                           OUT OF STOCK
                         </button>
