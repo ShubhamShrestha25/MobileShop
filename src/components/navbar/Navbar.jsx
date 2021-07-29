@@ -4,7 +4,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
 import Avatar from "@material-ui/core/Avatar";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import { animateScroll as scroll, Link } from "react-scroll";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
 import { auth, db, provider, storage } from "../Firebase";
 import { CartContext } from "../global/CartContext";
@@ -292,55 +291,47 @@ const Navbar = ({ handleNextButton }) => {
 
   return (
     <div className={navbar ? "navbaractive" : "navbar"} ref={divRef}>
-      <h1 className="navbar-logo" onClick={() => scroll.scrollToTop()}>
-        MoBify
-      </h1>
+      <h1 className="navbar-logo">MoBify</h1>
       <div className="menu-icon" onClick={clickHandler}>
         {clicked ? <CloseIcon /> : <MenuIcon />}
       </div>
       <div className={clicked ? "nav-menu active" : "nav-menu"}>
-        <Link
+        <a
           onClick={() => multipleFunction()}
           className="nav-links"
-          to="home"
-          smooth={true}
-          duration={1000}
+          href="#home"
         >
           Home
-        </Link>
+        </a>
 
-        <Link
+        <a
           onClick={() => multipleFunction()}
           className="nav-links"
-          to="product"
-          smooth={true}
-          duration={1000}
+          href="#product"
         >
           Products
-        </Link>
+        </a>
 
-        <Link
+        <a
           onClick={() => multipleFunction()}
           className="nav-links"
-          to="service"
-          smooth={true}
-          duration={1000}
+          href="#service"
         >
           Service
-        </Link>
+        </a>
 
-        <Link
+        <a
           onClick={() => multipleFunction()}
           className="nav-links"
-          to="contact"
-          smooth={true}
-          duration={1000}
+          href="#contact"
         >
           Contact
-        </Link>
+        </a>
 
         <div className="basket">
-          <ShoppingCartIcon onClick={openSlider} />
+          <a href="#cart" style={{ textDecoration: "none", color: "white" }}>
+            <ShoppingCartIcon onClick={openSlider} />{" "}
+          </a>
           <span>{totalQty}</span>
         </div>
       </div>
@@ -413,16 +404,21 @@ const Navbar = ({ handleNextButton }) => {
                     <span>{totalQty}</span>
                   </div>
                   {isLoggedIn ? (
-                    <button
-                      className="btn"
-                      style={{ marginTop: 10 + "px" }}
-                      onClick={() => {
-                        toggleModal();
-                        openSlider();
-                      }}
+                    <a
+                      href="#checkout"
+                      style={{ textDecoration: "none", color: "black" }}
                     >
-                      Checkout
-                    </button>
+                      <button
+                        className="btn"
+                        style={{ marginTop: 10 + "px" }}
+                        onClick={() => {
+                          toggleModal();
+                          openSlider();
+                        }}
+                      >
+                        Checkout
+                      </button>
+                    </a>
                   ) : (
                     <button
                       className="btn"
@@ -516,7 +512,12 @@ const Navbar = ({ handleNextButton }) => {
             <ul className={dropDownOpen ? "dropdown active" : "dropdown"}>
               <h1>{userInfo.userName}</h1>
               <div>
-                <h1 onClick={orderPopUp}>My Orders</h1>
+                <a
+                  href="#my-order"
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  <h1 onClick={orderPopUp}>My Orders</h1>
+                </a>
                 <Scrollbars style={{ width: "100%", height: "100%" }}>
                   {openOrderDropDownModal && (
                     <div className="add-products-details">
@@ -573,13 +574,18 @@ const Navbar = ({ handleNextButton }) => {
                   <div key={admin.AdminID}>
                     {userInfo.uid === admin.AdminID ? (
                       <div>
-                        <h1
-                          onClick={() => {
-                            addProductPopUp();
-                          }}
+                        <a
+                          href="#add-product"
+                          style={{ textDecoration: "none", color: "black" }}
                         >
-                          Add Products
-                        </h1>
+                          <h1
+                            onClick={() => {
+                              addProductPopUp();
+                            }}
+                          >
+                            Add Products
+                          </h1>
+                        </a>
                         {openDropDownModal && (
                           <div className="add-products-details">
                             <div

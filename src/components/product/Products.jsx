@@ -8,7 +8,6 @@ import { CartContext } from "../global/CartContext";
 import Pagination from "./Pagination";
 import Rating from "@material-ui/lab/Rating";
 
-
 const Products = () => {
   const { products } = useContext(ProductsContext);
   const { dispatch } = useContext(CartContext);
@@ -180,11 +179,13 @@ const Products = () => {
           .map((product) => (
             <div className="product-card" key={product.ProductID}>
               <div>
-                <img
-                  src={product.ProductImg}
-                  alt="not found"
-                  onClick={() => openModal(product.ProductID)}
-                />
+                <a href={"#" + product.ProductName} >
+                  <img
+                    src={product.ProductImg}
+                    alt="not found"
+                    onClick={() => openModal(product.ProductID)}
+                  />
+                </a>
               </div>
               <div className="product-name">{product.ProductName}</div>
               <div className="star-rating">
@@ -197,11 +198,7 @@ const Products = () => {
               </div>
               <div className="product-price">Rs {product.ProductPrice}</div>
               {product.ProductQuantity === 0 ? (
-                <button
-                  className="outofstock_btn"
-                >
-                  OUT OF STOCK{" "}
-                </button>
+                <button className="outofstock_btn">OUT OF STOCK </button>
               ) : (
                 <button
                   className="btn"
@@ -268,11 +265,7 @@ const Products = () => {
                         )}
                       </div>
                       {singleProduct.ProductQuantity === 0 ? (
-                        <button
-                          className="outofstock_btn"
-                        >
-                          OUT OF STOCK
-                        </button>
+                        <button className="outofstock_btn">OUT OF STOCK</button>
                       ) : (
                         <button
                           className="product_btn"
