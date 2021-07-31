@@ -255,7 +255,6 @@ body.active-modal {
   margin-top: 13px;
 }
 
-
 .inputbox input,
 textarea {
   width: 100%;
@@ -435,52 +434,45 @@ textarea:valid ~ span {
   font-size: 22px;
   overflow: hidden;
   overflow-y: scroll;
-  width: 50%;
 }
 
 .order-header {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  font-weight: 200;
-  padding-right: 28px;
-  padding-bottom: 10px;
+  flex-direction: row;
+  justify-content: space-between;
+  font-weight: 500;
   cursor: default;
+  padding-left: 90px;
+  padding-right: 30px;
+  width: 100%;
 }
 .order-details {
   display: flex;
-  justify-content: space-around;
+  flex-direction: row;
   align-items: center;
-  padding: 5px;
+  padding: 10px;
   cursor: default;
+  font-size: 18px;
 }
 
 .order-id {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
   width: 30%;
 }
 
-.order-number {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+.order-name {
   width: 30%;
+}
+
+.order-quantity {
+  width: 15%;
 }
 
 .order-status {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
   width: 20%;
 }
 
 .order-amount {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 20%;
+  width: 10%;
 }
 
 @media screen and (max-width: 1600px) {

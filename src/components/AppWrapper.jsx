@@ -10,9 +10,24 @@ import axios from "axios";
 import { db } from "./Firebase";
 import firebase from "firebase/app";
 import { CartContext } from "./global/CartContext";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const AppWrapper = () => {
-  const { dispatch } = useContext(CartContext);
+  const { dispatch, shoppingCart, totalPrice, totalQty } =
+    useContext(CartContext);
+  useEffect(() => {
+    if (Array.isArray(shoppingCart)) {
+      localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
+    }
+  }, [shoppingCart]);
+  useEffect(() => {
+    localStorage.setItem("totalPrice", totalPrice || 0);
+  }, [totalPrice]);
+
+  useEffect(() => {
+    localStorage.setItem("totalQty", totalQty || 0);
+  }, [totalQty]);
 
   const handleNextButton = ({ totalPrice }) => {
     let config = {
@@ -24,19 +39,23 @@ const AppWrapper = () => {
       eventHandler: {
         onSuccess(payload) {
           // hit merchant api for initiating verfication
-          alert("Payment Sucessfull");
+          console.log(payload);
+          toast.success("Payment Sucessfull");
           dispatch({ type: "EMPTY" });
-
           firebase.auth().onAuthStateChanged((user) => {
             if (user) {
               const uid = user.uid;
+              const productNames = shoppingCart.map((eachProduct) => {
+                return eachProduct.ProductName;
+              });
               db.collection("orders")
                 .add({
                   orderID: payload.idx,
-                  mobileNum: payload.mobile,
+                  totalQty: totalQty,
                   deliveryStatus: "pending",
                   orderAmount: payload.amount / 100,
                   userIDs: uid,
+                  productNames: productNames,
                 })
                 .catch((error) => {
                   alert(error.message);

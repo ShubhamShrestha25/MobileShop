@@ -13,6 +13,8 @@ import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import { Scrollbars } from "react-custom-scrollbars";
 import firebase from "firebase/app";
 import IdleTimer from "react-idle-timer";
+import { useCallback } from "react";
+import { toast } from "react-toastify";
 
 const safeDocument = typeof document !== "undefined" ? document : {};
 const loginFromLocalStorage = JSON.parse(
@@ -68,12 +70,20 @@ const Navbar = ({ handleNextButton }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(loginFromLocalStorage);
   const loginHandler = async () => {
     await auth.signInWithPopup(provider);
+    toast.success("Logged In", {
+      autoClose: 2000,
+    });
     setIsLoggedIn(!isLoggedIn);
   };
 
   const logoutHandler = async () => {
     await auth.signOut();
     setIsLoggedIn(!isLoggedIn);
+    toast.error("Logged Out", {
+      autoClose: 2000,
+    });
+    localStorage.clear();
+    dispatch({ type: "EMPTY" });
   };
 
   useEffect(() => {
@@ -261,33 +271,37 @@ const Navbar = ({ handleNextButton }) => {
 
   const [myOrder, setMyOrder] = useState([]);
   const [admins, setAdmins] = useState([]);
-  const orderData = firebase.firestore().collection("orders");
-  const adminData = firebase.firestore().collection("admin");
 
-  const getAdmin = () => {
-    adminData.onSnapshot((querySnapshot) => {
-      const texts = [];
-      querySnapshot.forEach((doc) => {
-        texts.push(doc.data());
+  const getAdmin = useCallback(() => {
+    firebase
+      .firestore()
+      .collection("admin")
+      .onSnapshot((querySnapshot) => {
+        const texts = [];
+        querySnapshot.forEach((doc) => {
+          texts.push(doc.data());
+        });
+        setAdmins(texts);
       });
-      setAdmins(texts);
-    });
-  };
+  }, []);
 
-  const getOrders = () => {
-    orderData.onSnapshot((querySnapshot) => {
-      const items = [];
-      querySnapshot.forEach((doc) => {
-        items.push(doc.data());
+  const getOrders = useCallback(() => {
+    firebase
+      .firestore()
+      .collection("orders")
+      .onSnapshot((querySnapshot) => {
+        const items = [];
+        querySnapshot.forEach((doc) => {
+          items.push(doc.data());
+        });
+        setMyOrder(items);
       });
-      setMyOrder(items);
-    });
-  };
+  }, []);
 
   useEffect(() => {
     getOrders();
     getAdmin();
-  });
+  }, [getOrders, getAdmin]);
 
   return (
     <div className={navbar ? "navbaractive" : "navbar"} ref={divRef}>
@@ -527,18 +541,22 @@ const Navbar = ({ handleNextButton }) => {
                       ></div>
                       <div className="orders-details-content">
                         <div className="order-header">
-                          <div className="order-id">Order ID</div>
-                          <div className="order-number">Order Number</div>
-                          <div className="order-status">Status</div>
-                          <div className="order-amount">Amount</div>
+                          <div className="order-header-id">Order ID</div>
+                          <div className="order-header-name">Product Name</div>
+                          <div className="order-header-quantity">Quantity</div>
+                          <div className="order-header-status">Status</div>
+                          <div className="order-header-amount">Amount</div>
                         </div>
                         {myOrder.map((order) => (
-                          <div key={order.orderID}>
+                          <div key={order.orderID} className="order">
                             {userInfo.uid === order.userIDs ? (
                               <div className="order-details">
                                 <div className="order-id">{order.orderID}</div>
-                                <div className="order-number">
-                                  {order.mobileNum}
+                                <div className="order-name">
+                                  {order.productNames}
+                                </div>
+                                <div className="order-quantity">
+                                  {order.totalQty}
                                 </div>
                                 <div className="order-status">
                                   {order.deliveryStatus === "pending" ? (

@@ -4,6 +4,8 @@ import EmailIcon from "@material-ui/icons/Email";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import PhoneIcon from "@material-ui/icons/Phone";
 import { db } from "../Firebase";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Contact = () => {
   const [name, setName] = useState("");
@@ -22,7 +24,7 @@ const Contact = () => {
         message: message,
       })
       .then(() => {
-        alert("Message has been submitted");
+        toast("Message has been submitted");
         setLoading(false);
       })
       .catch((error) => {
@@ -119,6 +121,13 @@ const Contact = () => {
           </form>
         </div>
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        rtl={false}
+      />
     </div>
   );
 };

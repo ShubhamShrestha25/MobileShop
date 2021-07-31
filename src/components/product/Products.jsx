@@ -7,6 +7,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import { CartContext } from "../global/CartContext";
 import Pagination from "./Pagination";
 import Rating from "@material-ui/lab/Rating";
+import { toast } from "react-toastify";
 
 const Products = () => {
   const { products } = useContext(ProductsContext);
@@ -179,7 +180,7 @@ const Products = () => {
           .map((product) => (
             <div className="product-card" key={product.ProductID}>
               <div>
-                <a href={"#" + product.ProductName} >
+                <a href={"#" + product.ProductName}>
                   <img
                     src={product.ProductImg}
                     alt="not found"
@@ -198,17 +199,29 @@ const Products = () => {
               </div>
               <div className="product-price">Rs {product.ProductPrice}</div>
               {product.ProductQuantity === 0 ? (
-                <button className="outofstock_btn">OUT OF STOCK </button>
+                <button
+                  className="outofstock_btn"
+                  onClick={() =>
+                    toast.error("Out Of Stock", {
+                      autoClose: 1000,
+                    })
+                  }
+                >
+                  OUT OF STOCK
+                </button>
               ) : (
                 <button
                   className="btn"
-                  onClick={() =>
+                  onClick={() => {
                     dispatch({
                       type: "ADD_to_CART",
                       id: product.ProductID,
                       product,
-                    })
-                  }
+                    });
+                    toast.success("Added To Cart", {
+                      autoClose: 1000,
+                    });
+                  }}
                 >
                   ADD TO CART
                 </button>
@@ -265,19 +278,31 @@ const Products = () => {
                         )}
                       </div>
                       {singleProduct.ProductQuantity === 0 ? (
-                        <button className="outofstock_btn">OUT OF STOCK</button>
+                        <button
+                          className="outofstock_btn"
+                          onClick={() =>
+                            toast.error("Out Of Stock", {
+                              autoClose: 1000,
+                            })
+                          }
+                        >
+                          OUT OF STOCK
+                        </button>
                       ) : (
                         <button
                           className="product_btn"
-                          onClick={() =>
+                          onClick={() => {
                             dispatch({
                               type: "ADD_to_CART",
                               id: singleProduct.ProductID,
                               product: singleProduct,
-                            })
-                          }
+                            });
+                            toast.success("Added To Cart", {
+                              autoClose: 1000,
+                            });
+                          }}
                         >
-                          Add to cart
+                          ADD TO CART
                         </button>
                       )}
                     </div>

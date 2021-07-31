@@ -24,6 +24,7 @@ const Pagination = ({ showPerPage, onPaginationChange, total }) => {
         setCounter(counter + 1);
       }
     }
+    document.getElementById("product").scrollIntoView();
   };
   return (
     <div className="pagination-container">
