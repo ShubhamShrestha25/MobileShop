@@ -48,6 +48,10 @@ const AppWrapper = () => {
               const productNames = shoppingCart.map((eachProduct) => {
                 return eachProduct.ProductName;
               });
+              const productquantity = shoppingCart.map((eachProduct) => {
+                return eachProduct.qty;
+              });
+
               db.collection("orders")
                 .add({
                   orderID: payload.idx,
@@ -56,6 +60,7 @@ const AppWrapper = () => {
                   orderAmount: payload.amount / 100,
                   userIDs: uid,
                   productNames: productNames,
+                  productquantity: productquantity,
                 })
                 .catch((error) => {
                   alert(error.message);

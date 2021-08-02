@@ -321,7 +321,7 @@ const Navbar = ({ handleNextButton }) => {
         <a
           onClick={() => multipleFunction()}
           className="nav-links"
-          href="#product"
+          href="#products"
         >
           Products
         </a>
@@ -541,11 +541,11 @@ const Navbar = ({ handleNextButton }) => {
                       ></div>
                       <div className="orders-details-content">
                         <div className="order-header">
-                          <div className="order-header-id">Order ID</div>
-                          <div className="order-header-name">Product Name</div>
-                          <div className="order-header-quantity">Quantity</div>
-                          <div className="order-header-status">Status</div>
-                          <div className="order-header-amount">Amount</div>
+                          <div className="order-id">Order ID</div>
+                          <div className="order-name">Product Name</div>
+                          <div className="order-quantity">Quantity</div>
+                          <div className="order-status">Status</div>
+                          <div className="order-amount">Amount</div>
                         </div>
                         {myOrder.map((order) => (
                           <div key={order.orderID} className="order">
@@ -554,6 +554,7 @@ const Navbar = ({ handleNextButton }) => {
                                 <div className="order-id">{order.orderID}</div>
                                 <div className="order-name">
                                   {order.productNames}
+                                  {order.productquantity}
                                 </div>
                                 <div className="order-quantity">
                                   {order.totalQty}

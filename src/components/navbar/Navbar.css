@@ -337,7 +337,6 @@ textarea:valid ~ span {
 }
 
 .dropdown h1 {
-  position: relative;
   padding-bottom: 10px;
   padding-top: 5px;
   width: 65px;
@@ -388,7 +387,7 @@ textarea:valid ~ span {
 
 .add-products-details-content {
   position: absolute;
-  top: 53%;
+  top: 54%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: #f1f1f1;
@@ -424,55 +423,58 @@ textarea:valid ~ span {
 
 .orders-details-content {
   position: absolute;
-  top: 53%;
+  top: 54%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: #f1f1f1;
   padding: 100px 20px;
   border-radius: 15px;
   height: 85%;
+  width: 50%;
   font-size: 22px;
   overflow: hidden;
   overflow-y: scroll;
+  z-index: 10;
 }
 
 .order-header {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   font-weight: 500;
+  padding: 0px 10px;
   cursor: default;
-  padding-left: 90px;
-  padding-right: 30px;
-  width: 100%;
 }
 .order-details {
   display: flex;
-  flex-direction: row;
-  align-items: center;
   padding: 10px;
   cursor: default;
   font-size: 18px;
+  align-items: top;
 }
 
 .order-id {
-  width: 30%;
+  width: 35%;
+  text-align: center;
 }
 
 .order-name {
   width: 30%;
+  align-items: top;
 }
 
 .order-quantity {
-  width: 15%;
+  width: 20%;
+  text-align: center;
 }
 
 .order-status {
-  width: 20%;
+  width: 15%;
+  text-align: center;
 }
 
 .order-amount {
   width: 10%;
+  text-align: center;
 }
 
 @media screen and (max-width: 1600px) {
@@ -626,17 +628,20 @@ textarea:valid ~ span {
     height: 100%;
   }
 
-  .add-products-details-content,
   .orders-details-content {
     height: 90%;
     width: 95%;
-    padding: 80px 20px;
+    padding: 85px 5px;
+  }
+
+  .add-products-details-content {
+    height: 90%;
+    width: 95%;
+    padding: 65px 10px;
   }
 
   .order-header {
     font-size: 11px;
-    padding-right: 20px;
-    justify-content: space-between;
   }
 
   .order-details {
@@ -645,18 +650,32 @@ textarea:valid ~ span {
   }
 
   .order-id {
-    min-width: 43%;
+    width: 25%;
+    word-wrap: break-word;
   }
 
-  .order-number {
-    min-width: 28%;
+  .order-name {
+    width: 35%;
+    margin-left: 5px;
+  }
+
+  .order-quantity {
+    width: 15%;
   }
 
   .order-status {
-    min-width: 15%;
+    width: 15%;
   }
 
   .order-amount {
-    min-width: 15%;
+    width: 10%;
+  }
+
+  .form-group {
+    margin-top: -25px;
+    font-size: 14px;
+  }
+  .form-control {
+    font-size: 15px;
   }
 }

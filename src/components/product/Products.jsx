@@ -127,7 +127,7 @@ const Products = () => {
   };
 
   return (
-    <div className="products" id="product">
+    <div className="products" id="products">
       <h1>Products</h1>
       <div className="filter">
         <div className="Order">
