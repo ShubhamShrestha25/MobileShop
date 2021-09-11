@@ -532,7 +532,6 @@ const Navbar = ({ handleNextButton }) => {
                 >
                   <h1 onClick={orderPopUp}>My Orders</h1>
                 </a>
-                <Scrollbars style={{ width: "100%", height: "100%" }}>
                   {openOrderDropDownModal && (
                     <div className="add-products-details">
                       <div
@@ -547,6 +546,7 @@ const Navbar = ({ handleNextButton }) => {
                           <div className="order-status">Status</div>
                           <div className="order-amount">Amount</div>
                         </div>
+                        <Scrollbars style={{ width: "100%", height: "100%" }}>
                         {myOrder.map((order) => (
                           <div key={order.orderID} className="order">
                             {userInfo.uid === order.userIDs ? (
@@ -579,6 +579,7 @@ const Navbar = ({ handleNextButton }) => {
                             )}
                           </div>
                         ))}
+                        </Scrollbars>
                         {error && <span className="error-msg">{error}</span>}
                         <button className="closebtn" onClick={orderPopUp}>
                           <CloseRoundedIcon />
@@ -586,7 +587,6 @@ const Navbar = ({ handleNextButton }) => {
                       </div>
                     </div>
                   )}
-                </Scrollbars>
               </div>
               <div>
                 {admins.map((admin) => (

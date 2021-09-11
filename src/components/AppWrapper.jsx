@@ -59,6 +59,7 @@ const AppWrapper = () => {
                   deliveryStatus: "pending",
                   orderAmount: payload.amount / 100,
                   userIDs: uid,
+                  mobilenumber: payload.mobile,
                   productNames: productNames,
                   productquantity: productquantity,
                 })
@@ -86,7 +87,7 @@ const AppWrapper = () => {
           // handle errors
         },
       },
-      paymentPreference: ["KHALTI", "MOBILE_BANKING"],
+      paymentPreference: ["KHALTI"],
     };
     let checkout = new KhaltiCheckout(config);
     checkout.show({ amount: 1000 });

@@ -30,6 +30,7 @@
   width: 250px;
   cursor: pointer;
 }
+
 .product-card {
   display: flex;
   justify-content: center;
@@ -87,10 +88,16 @@
   top: 8rem;
 }
 
+.selectFilter {
+  padding: 5px;
+  margin-bottom: 5px;
+  margin-left: 10px;
+}
+
 .searchbar {
   position: relative;
   float: right;
-  top: 5rem;
+  top: 4rem;
   right: 5rem;
 }
 .searchBox {

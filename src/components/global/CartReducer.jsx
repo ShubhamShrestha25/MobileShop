@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 
 const CartReducer = (state, action) => {
   const { shoppingCart, totalPrice, totalQty } = state;
@@ -13,8 +14,14 @@ const CartReducer = (state, action) => {
         (product) => product.ProductID === action.id
       );
       if (check) {
+        toast.error("Already In Cart", {
+          autoClose: 1000,
+        });
         return state;
       } else {
+        toast.success("Added To Cart", {
+          autoClose: 1000,
+        });
         product = action.product;
         product["qty"] = 1;
         product["TotalProductPrice"] = product.ProductPrice * product.qty;

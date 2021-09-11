@@ -131,8 +131,12 @@ const Products = () => {
       <h1>Products</h1>
       <div className="filter">
         <div className="Order">
-          Order{" "}
-          <select value={filter.filter} onChange={sortProducts}>
+          Order
+          <select
+            value={filter.filter}
+            onChange={sortProducts}
+            className="selectFilter"
+          >
             <option value="latest">Latest</option>
             <option value="lowest">Lowest</option>
             <option value="highest">Highest</option>
@@ -141,8 +145,13 @@ const Products = () => {
           </select>
         </div>
         <div className="brand">
-          Brand{" "}
-          <select name="brand" value={filter.filter} onChange={filterBrands}>
+          Brand
+          <select
+            name="brand"
+            value={filter.filter}
+            onChange={filterBrands}
+            className="selectFilter"
+          >
             {brand !== undefined
               ? brand.map((item, index) => (
                   <option key={index} value={item}>
@@ -217,9 +226,6 @@ const Products = () => {
                       type: "ADD_to_CART",
                       id: product.ProductID,
                       product,
-                    });
-                    toast.success("Added To Cart", {
-                      autoClose: 1000,
                     });
                   }}
                 >
