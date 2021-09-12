@@ -303,9 +303,6 @@ const Products = () => {
                               id: singleProduct.ProductID,
                               product: singleProduct,
                             });
-                            toast.success("Added To Cart", {
-                              autoClose: 1000,
-                            });
                           }}
                         >
                           ADD TO CART

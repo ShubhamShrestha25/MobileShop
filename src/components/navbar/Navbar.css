@@ -255,6 +255,19 @@ body.active-modal {
   margin-top: 13px;
 }
 
+.selectPayment {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 0px;
+}
+
+.selectPayment select{
+  padding: 5px;
+}
+
+
 .inputbox input,
 textarea {
   width: 100%;
@@ -432,7 +445,7 @@ textarea:valid ~ span {
   height: 85%;
   width: 50%;
   font-size: 22px;
- 
+
   z-index: 10;
 }
 

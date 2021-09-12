@@ -138,7 +138,7 @@ const Navbar = ({ handleNextButton }) => {
     if (
       user.fname.length > 1 &&
       user.lname.length > 1 &&
-      user.location.length > 1
+      user.location.length > 1 
     ) {
       setDisable(false);
     }
@@ -213,12 +213,6 @@ const Navbar = ({ handleNextButton }) => {
     }
   };
 
-  // my orders \\
-  const [openOrderDropDownModal, setOrderOpenDropDownModal] = useState(false);
-  const orderPopUp = () => {
-    setOrderOpenDropDownModal(!openOrderDropDownModal);
-  };
-
   const addProduct = (e) => {
     e.preventDefault();
     const uploadTask = storage
@@ -265,6 +259,12 @@ const Navbar = ({ handleNextButton }) => {
           });
       }
     );
+  };
+
+  // my orders \\
+  const [openOrderDropDownModal, setOrderOpenDropDownModal] = useState(false);
+  const orderPopUp = () => {
+    setOrderOpenDropDownModal(!openOrderDropDownModal);
   };
 
   // getting data from firebase \\
@@ -495,6 +495,15 @@ const Navbar = ({ handleNextButton }) => {
                               />
                               <span>Address</span>
                             </div>
+
+                            <div className="selectPayment">
+                              <span>Payment</span>
+                              <select>
+                                <option>Cash on delivery</option>
+                                <option>Khalti</option>
+                              </select>
+                            </div>
+
                             <div className="inputbox">
                               <button
                                 type="submit"
@@ -532,21 +541,21 @@ const Navbar = ({ handleNextButton }) => {
                 >
                   <h1 onClick={orderPopUp}>My Orders</h1>
                 </a>
-                  {openOrderDropDownModal && (
-                    <div className="add-products-details">
-                      <div
-                        onClick={orderPopUp}
-                        className="add-products-overlay"
-                      ></div>
-                      <div className="orders-details-content">
-                        <div className="order-header">
-                          <div className="order-id">Order ID</div>
-                          <div className="order-name">Product Name</div>
-                          <div className="order-quantity">Quantity</div>
-                          <div className="order-status">Status</div>
-                          <div className="order-amount">Amount</div>
-                        </div>
-                        <Scrollbars style={{ width: "100%", height: "100%" }}>
+                {openOrderDropDownModal && (
+                  <div className="add-products-details">
+                    <div
+                      onClick={orderPopUp}
+                      className="add-products-overlay"
+                    ></div>
+                    <div className="orders-details-content">
+                      <div className="order-header">
+                        <div className="order-id">Order ID</div>
+                        <div className="order-name">Product Name</div>
+                        <div className="order-quantity">Quantity</div>
+                        <div className="order-status">Status</div>
+                        <div className="order-amount">Amount</div>
+                      </div>
+                      <Scrollbars style={{ width: "100%", height: "100%" }}>
                         {myOrder.map((order) => (
                           <div key={order.orderID} className="order">
                             {userInfo.uid === order.userIDs ? (
@@ -579,14 +588,14 @@ const Navbar = ({ handleNextButton }) => {
                             )}
                           </div>
                         ))}
-                        </Scrollbars>
-                        {error && <span className="error-msg">{error}</span>}
-                        <button className="closebtn" onClick={orderPopUp}>
-                          <CloseRoundedIcon />
-                        </button>
-                      </div>
+                      </Scrollbars>
+                      {error && <span className="error-msg">{error}</span>}
+                      <button className="closebtn" onClick={orderPopUp}>
+                        <CloseRoundedIcon />
+                      </button>
                     </div>
-                  )}
+                  </div>
+                )}
               </div>
               <div>
                 {admins.map((admin) => (
