@@ -260,7 +260,7 @@ body.active-modal {
   justify-content: flex-start;
   align-items: center;
   gap: 20px;
-  padding: 10px 0px;
+  padding: 25px 0px;
 }
 
 .selectPayment select{

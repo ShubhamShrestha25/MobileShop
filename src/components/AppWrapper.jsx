@@ -29,7 +29,7 @@ const AppWrapper = () => {
     localStorage.setItem("totalQty", totalQty || 0);
   }, [totalQty]);
 
-  const handleNextButton = ({ totalPrice }) => {
+  const handleKhaltiButton = ({ totalPrice }) => {
     let config = {
       // replace this key with yours
       publicKey: process.env.REACT_APP_KHALTI_PUBLIC_KEY,
@@ -45,11 +45,10 @@ const AppWrapper = () => {
           firebase.auth().onAuthStateChanged((user) => {
             if (user) {
               const uid = user.uid;
-              const productNames = shoppingCart.map((eachProduct) => {
-                return eachProduct.ProductName;
-              });
-              const productquantity = shoppingCart.map((eachProduct) => {
-                return eachProduct.qty;
+              
+
+              const products = shoppingCart.map((eachProduct) => {
+                return {productName: eachProduct.ProductName, productQuantity:eachProduct.qty};
               });
 
               db.collection("orders")
@@ -60,8 +59,8 @@ const AppWrapper = () => {
                   orderAmount: payload.amount / 100,
                   userIDs: uid,
                   mobilenumber: payload.mobile,
-                  productNames: productNames,
-                  productquantity: productquantity,
+                  products: products,
+                  
                 })
                 .catch((error) => {
                   alert(error.message);
@@ -95,7 +94,7 @@ const AppWrapper = () => {
 
   return (
     <>
-      <Navbar handleNextButton={handleNextButton} />
+      <Navbar handleKhaltiButton={handleKhaltiButton} />
       <Hero />
       <Products />
       <Services />

@@ -21,7 +21,7 @@ const loginFromLocalStorage = JSON.parse(
   localStorage.getItem("login") || false
 );
 
-const Navbar = ({ handleNextButton }) => {
+const Navbar = ({ handleKhaltiButton }) => {
   const { shoppingCart, dispatch, totalPrice, totalQty } =
     useContext(CartContext);
 
@@ -121,7 +121,6 @@ const Navbar = ({ handleNextButton }) => {
   const [disable, setDisable] = useState(true);
   const [user, setUser] = useState({
     fname: "",
-    lname: "",
     phone: "",
     location: "",
   });
@@ -135,17 +134,12 @@ const Navbar = ({ handleNextButton }) => {
     let value = e.target.value;
     setUser({ ...user, [name]: value });
 
-    if (
-      user.fname.length > 1 &&
-      user.lname.length > 1 &&
-      user.location.length > 1 
-    ) {
+    if (user.fname.length > 1 && user.location.length > 1) {
       setDisable(false);
     }
 
     if (
       user.fname.length <= 1 ||
-      user.lname.length <= 1 ||
       user.location.length <= 1 ||
       user.phone.length <= 8
     ) {
@@ -159,7 +153,6 @@ const Navbar = ({ handleNextButton }) => {
     db.collection("shipping")
       .add({
         fname: user.fname,
-        lname: user.lname,
         location: user.location,
         phone: user.phone,
       })
@@ -172,7 +165,6 @@ const Navbar = ({ handleNextButton }) => {
 
     setUser({
       fname: "",
-      lname: "",
       phone: "",
       location: "",
     });
@@ -302,6 +294,33 @@ const Navbar = ({ handleNextButton }) => {
     getOrders();
     getAdmin();
   }, [getOrders, getAdmin]);
+
+  // cash on delivary handler //
+  const [paymentType, setPaymentType] = useState("cash");
+
+  const productNames = shoppingCart.map((eachProduct) => {
+    return eachProduct.ProductName;
+  });
+  const productquantity = shoppingCart.map((eachProduct) => {
+    return eachProduct.qty;
+  });
+
+  const handleCashOnDelivary = () => {
+    db.collection("orders")
+      .add({
+        orderID: user.fname,
+        totalQty: totalQty,
+        deliveryStatus: "pending",
+        orderAmount: totalPrice,
+        userIDs: userInfo.uid,
+        mobilenumber: user.phone,
+        productNames: productNames,
+        productquantity: productquantity,
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
 
   return (
     <div className={navbar ? "navbaractive" : "navbar"} ref={divRef}>
@@ -460,18 +479,7 @@ const Navbar = ({ handleNextButton }) => {
                                 value={user.fname}
                                 onChange={handleInputs}
                               />
-                              <span>First Name</span>
-                            </div>
-                            <div className="inputbox">
-                              <input
-                                type="text"
-                                autoComplete="off"
-                                name="lname"
-                                required="required"
-                                value={user.lname}
-                                onChange={handleInputs}
-                              />
-                              <span>Last Name</span>
+                              <span>Full Name</span>
                             </div>
                             <div className="inputbox">
                               <input
@@ -498,9 +506,11 @@ const Navbar = ({ handleNextButton }) => {
 
                             <div className="selectPayment">
                               <span>Payment</span>
-                              <select>
-                                <option>Cash on delivery</option>
-                                <option>Khalti</option>
+                              <select
+                                onChange={(e) => setPaymentType(e.target.value)}
+                              >
+                                <option value="cash">Cash on delivery</option>
+                                <option value="khalti">Khalti</option>
                               </select>
                             </div>
 
@@ -509,7 +519,14 @@ const Navbar = ({ handleNextButton }) => {
                                 type="submit"
                                 disabled={disable}
                                 onSubmit={toggleModal}
-                                onClick={() => handleNextButton({ totalPrice })}
+                                onClick={() => {
+                                  if (paymentType === "cash") {
+                                    handleCashOnDelivary();
+                                  } else {
+                                    handleKhaltiButton({ totalPrice });
+                                  }
+                                  setPaymentType("cash");
+                                }}
                               >
                                 Next
                               </button>
@@ -562,8 +579,12 @@ const Navbar = ({ handleNextButton }) => {
                               <div className="order-details">
                                 <div className="order-id">{order.orderID}</div>
                                 <div className="order-name">
-                                  {order.productNames}
-                                  {order.productquantity}
+                                  {order.products.map((product) => (
+                                    <div>
+                                      {product.productName}(
+                                      {product.productQuantity})
+                                    </div>
+                                  ))}
                                 </div>
                                 <div className="order-quantity">
                                   {order.totalQty}

@@ -316,13 +316,14 @@ const Products = () => {
           </div>
         </div>
       </div>
-      {!search && (
-        <Pagination
-          showPerPage={showPerPage}
-          onPaginationChange={onPaginationChange}
-          total={products.length}
-        />
-      )}
+      {search ||
+        (temp.length >= 9 && (
+          <Pagination
+            showPerPage={showPerPage}
+            onPaginationChange={onPaginationChange}
+            total={products.length}
+          />
+        ))}
     </div>
   );
 };
