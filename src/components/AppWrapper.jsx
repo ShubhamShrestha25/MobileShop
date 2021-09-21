@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Contact from "./contact/Contact";
 import Footer from "./footer/Footer";
 import Hero from "./Hero/Hero";
@@ -16,6 +16,25 @@ import { toast } from "react-toastify";
 const AppWrapper = () => {
   const { dispatch, shoppingCart, totalPrice, totalQty } =
     useContext(CartContext);
+
+  const [userInfo, setUserInfo] = useState({
+    userName: "",
+    userPhoto: "",
+    uid: "",
+  });
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setUserInfo({
+          userName: user.displayName,
+          userPhoto: user.photoURL,
+          uid: user.uid,
+        });
+      }
+    });
+  }, []);
+
   useEffect(() => {
     if (Array.isArray(shoppingCart)) {
       localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
@@ -42,31 +61,26 @@ const AppWrapper = () => {
           console.log(payload);
           toast.success("Payment Sucessfull");
           dispatch({ type: "EMPTY" });
-          firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-              const uid = user.uid;
-              
-
-              const products = shoppingCart.map((eachProduct) => {
-                return {productName: eachProduct.ProductName, productQuantity:eachProduct.qty};
-              });
-
-              db.collection("orders")
-                .add({
-                  orderID: payload.idx,
-                  totalQty: totalQty,
-                  deliveryStatus: "pending",
-                  orderAmount: payload.amount / 100,
-                  userIDs: uid,
-                  mobilenumber: payload.mobile,
-                  products: products,
-                  
-                })
-                .catch((error) => {
-                  alert(error.message);
-                });
-            }
+          const productsInfo = shoppingCart.map((eachProduct) => {
+            return {
+              productName: eachProduct.ProductName,
+              productQuantity: eachProduct.qty,
+            };
           });
+
+          db.collection("orders")
+            .add({
+              orderID: payload.idx,
+              totalQty: totalQty,
+              deliveryStatus: "pending",
+              orderAmount: payload.amount / 100,
+              userIDs: userInfo.uid,
+              mobilenumber: payload.mobile,
+              products: productsInfo,
+            })
+            .catch((error) => {
+              alert(error.message);
+            });
 
           const { token, amount } = payload;
 
@@ -94,7 +108,11 @@ const AppWrapper = () => {
 
   return (
     <>
-      <Navbar handleKhaltiButton={handleKhaltiButton} />
+      <Navbar
+        handleKhaltiButton={handleKhaltiButton}
+        userInfo={userInfo}
+        setUserInfo={setUserInfo}
+      />
       <Hero />
       <Products />
       <Services />

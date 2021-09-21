@@ -1,13 +1,31 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./Hero.css";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import { SliderData } from "./SliderData";
+import firebase from "firebase/app";
 
 const Hero = () => {
   const [current, setCurrent] = useState(0);
-  const length = SliderData.length;
+  const [slider, setSlider] = useState([]);
+  const length = slider.length;
   const timeout = useRef(null);
+
+  const getSlider = useCallback(() => {
+    firebase
+      .firestore()
+      .collection("sliders")
+      .onSnapshot((querySnapshot) => {
+        const items = [];
+        querySnapshot.forEach((doc) => {
+          items.push(doc.data());
+        });
+        setSlider(items);
+      });
+  }, []);
+
+  useEffect(() => {
+    getSlider();
+  }, [getSlider]);
 
   useEffect(() => {
     const nextSlide = () => {
@@ -32,19 +50,19 @@ const Hero = () => {
   return (
     <div className="heroSection" id="home">
       <div className="heroWrapper">
-        {SliderData.map((slide, index) => {
+        {slider.map((slide, index) => {
           return (
             <div className="heroSlide" key={index}>
               {index === current && (
                 <div className="heroSlider">
                   <img
                     className="heroImage"
-                    src={slide.image}
-                    alt={slide.alt}
+                    src={slide.SliderImg}
+                    alt={slide.SliderAlt}
                   />
                   <div className="heroContent">
-                    <h1>{slide.title}</h1>
-                    <p>{slide.price}</p>
+                    <h1>{slide.SliderTitle}</h1>
+                    <p>{slide.SliderPrice}</p>
                   </div>
                 </div>
               )}

@@ -256,7 +256,6 @@ const Products = () => {
                   />
                   <div className="product_details_description">
                     <p>
-                      {" "}
                       <strong>{singleProduct.ProductName}</strong>
                     </p>
                     <p> {singleProduct.ProductDetails}</p>
@@ -316,14 +315,14 @@ const Products = () => {
           </div>
         </div>
       </div>
-      {search ||
-        (temp.length >= 9 && (
+      {(!search &&
+        temp.length >= 9) && (
           <Pagination
             showPerPage={showPerPage}
             onPaginationChange={onPaginationChange}
             total={products.length}
           />
-        ))}
+        )}
     </div>
   );
 };

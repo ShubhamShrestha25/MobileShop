@@ -21,7 +21,7 @@ const loginFromLocalStorage = JSON.parse(
   localStorage.getItem("login") || false
 );
 
-const Navbar = ({ handleKhaltiButton }) => {
+const Navbar = ({ handleKhaltiButton,userInfo , setUserInfo }) => {
   const { shoppingCart, dispatch, totalPrice, totalQty } =
     useContext(CartContext);
 
@@ -79,6 +79,11 @@ const Navbar = ({ handleKhaltiButton }) => {
   const logoutHandler = async () => {
     await auth.signOut();
     setIsLoggedIn(!isLoggedIn);
+    setUserInfo({
+      userName: "",
+      userPhoto: "",
+      uid: "",
+    });
     toast.error("Logged Out", {
       autoClose: 2000,
     });
@@ -97,23 +102,7 @@ const Navbar = ({ handleKhaltiButton }) => {
     setIsLoggedIn(false);
   };
 
-  const [userInfo, setUserInfo] = useState({
-    userName: "",
-    userPhoto: "",
-    uid: "",
-  });
-
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        setUserInfo({
-          userName: user.displayName,
-          userPhoto: user.photoURL,
-          uid: user.uid,
-        });
-      }
-    });
-  }, []);
+  
 
   // Shopping Details \\
 
@@ -297,12 +286,11 @@ const Navbar = ({ handleKhaltiButton }) => {
 
   // cash on delivary handler //
   const [paymentType, setPaymentType] = useState("cash");
-
-  const productNames = shoppingCart.map((eachProduct) => {
-    return eachProduct.ProductName;
-  });
-  const productquantity = shoppingCart.map((eachProduct) => {
-    return eachProduct.qty;
+  const productsInfo = shoppingCart.map((eachProduct) => {
+    return {
+      productName: eachProduct.ProductName,
+      productQuantity: eachProduct.qty,
+    };
   });
 
   const handleCashOnDelivary = () => {
@@ -314,8 +302,13 @@ const Navbar = ({ handleKhaltiButton }) => {
         orderAmount: totalPrice,
         userIDs: userInfo.uid,
         mobilenumber: user.phone,
-        productNames: productNames,
-        productquantity: productquantity,
+        products: productsInfo,
+      })
+      .then(() => {
+        dispatch({ type: "EMPTY" });
+        toast.success("Order has been placed ", {
+          autoClose: 2000,
+        });
       })
       .catch((error) => {
         alert(error.message);
@@ -524,6 +517,7 @@ const Navbar = ({ handleKhaltiButton }) => {
                                     handleCashOnDelivary();
                                   } else {
                                     handleKhaltiButton({ totalPrice });
+                                    console.log("sadsa")
                                   }
                                   setPaymentType("cash");
                                 }}
@@ -581,8 +575,8 @@ const Navbar = ({ handleKhaltiButton }) => {
                                 <div className="order-name">
                                   {order.products.map((product) => (
                                     <div>
-                                      {product.productName}(
-                                      {product.productQuantity})
+                                      {product.productName} [
+                                      {product.productQuantity}]
                                     </div>
                                   ))}
                                 </div>
