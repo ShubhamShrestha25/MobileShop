@@ -65,7 +65,8 @@ const Hero = () => {
                   <div className="heroContent">
                     <h1>{slide.title}</h1>
                     <p>{slide.price}</p>
-                  </div>
+                  </div> 
+                  
                 </div>
               )}
             </div>
